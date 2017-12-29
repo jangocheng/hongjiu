@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />	
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>更换银行卡</title>
+		
+	</head>
+	<body>
+		<div class="mui-content" id="bank_page">
+        	
+			<div class="mui-page-content my-bankcard  mtp">
+				<div class="mui-scroll-wrapper" id="bankcard_list">
+					<div class="mui-scroll">
+						<ul id="bank_list">
+							
+						</ul>
+						<div id="cardbox">
+		    	
+		    			</div>
+						 <a id="add_bankcardBtn" href="add-bankcard.html" class="mui-btn mui-btn-blue mui-btn-block">添加银行卡</a>
+					</div>
+				</div>
+				
+			</div>
+        </div>
+        <script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+       <script src="<%templateskin%>/js/mui.min.js"></script>
+       <script>
+       	mui.init();
+       	
+       		//获取银行卡
+		function banklist(){
+			mui.ajax('/tools/submit_ajax.ashx?action=bankcard_select',{
+				datatype:'string',
+				type:'get',
+				success:function(data){
+				//	alert(9);
+				data = JSON.parse(data);
+				console.log(data);
+						//console.log(JSON.stringify(data));
+					if(data.status == 1){
+						
+						var html ='';
+						for(var i=0;i<data.Rows.length;i++){
+							
+							//html +="<li><a href='add_bankcard'><div class='mui-card'><p>"+data.Rows[i].bank_name+'</p><span>'+data.Rows[i].bank_card+'</span></div></a></li>';
+							html += '<li><a class="xz_bank" data-id='+data.Rows[i].id+'>';
+							html +="<div class='mui-card'><p>"+data.Rows[i].bank_name +"</p><span>";
+							html += data.Rows[i].bank_card + "</span></div></a>";
+							html +="<p class='mui-clearfix'><a href='add_bankcard.aspx?id="+data.Rows[i].id+"'>编辑</a><a href='javascript:void(0)'  class='del_bank' data-id='"+data.Rows[i].id+"'>删除</a></p></li>";
+						}
+						$('#bank_list').append(html);
+					}
+				}
+			})
+		}
+
+		banklist();
+		
+		mui('body').on('tap','.xz_bank',function(){
+			var bankId = $('.xz_bank').attr('data-id');
+			console.log(bankId);
+			setTimeout(function(){
+				window.location.href = 'tixian.apsx?id='+bankId;
+			},2000)
+		})
+       </script>
+	</body>
+</html>

@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>忘记密码</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<style>
+			.wj_password .mui-input-row > div{
+				display: inline-block;
+    padding:0 10px ;
+    height:30px;
+   
+    border: 1px solid #7D0000;
+    color: #fff;
+    background: #7D0000;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    float: right;
+    margin-top: 11px;
+    margin-right: 12px;
+			}
+		</style>
+	</head>
+
+	<body style="min-height: 100%; background: #F2F2F2;">
+		<div class="mui-content wj_password">
+		    <div class="mui-input-group">
+		    	<form id="form1">
+		    		 <input type="hidden" name="txtType" value="mobile" />
+		    		  <div class="mui-input-row">
+			        	  <input id="txtCode" name="txtCode" type="text" class="input code" placeholder="输入验证码" datatype="s4-20" nullmsg="请输入右边显示的验证码" sucmsg=" " />
+			        </div>
+			        <div class="mui-input-row">
+			        	 <a class="send" title="点击切换验证码" href="javascript:;" onclick="ToggleCode(this, '{config.webpath}tools/verify_code.ashx');return false;">
+              <img src="{config.webpath}tools/verify_code.ashx" width="80" height="22" />
+          			  </a>
+			        </div>
+		    		  <div class="mui-input-row">
+			            <input type="text" name="txtUserName" id="txtPhone" datatype="phone" errormsg="请输入用户名！" class="mui-input-clear" placeholder="请输入用户名" style="width: 70%;">
+			            <div id="getCode">获取验证码</div>
+			        </div>
+		    	</form>
+		    	<form id="wjpwd_form">
+			      
+			        <div class="mui-input-row">
+			            <input type="text" name="hideCode" id="hideCode" class="mui-input-clear" datatype="notnull" errormsg="请输入验证码！" placeholder="请输入手机验证码">
+			        </div>
+			        <div class="mui-input-row">
+			            <input type="password" name="txtPassword" id="txtPassword" datatype="notnull" errormsg="请输入密码！" class="mui-input-clear" placeholder="请设置登录密码">
+			        </div>
+			         <div class="mui-input-row">
+			            <input type="password" datatype="notnull" errormsg="请输入密码！" class="mui-input-clear" name="txtPassword1" id="txtPwdAgain" placeholder="请再次输入登录密码">
+			        </div>
+			      
+			       
+			        <input type="hidden" name="txtUserName" id="txtUserName" value="13586322035" />
+			       
+		        </form>
+		    </div>
+		    <button id="pwdagain_submit" type="button" class="mui-btn mui-btn-blue mui-btn-block regbtn">确认修改</button>
+		  
+		</div>
+		<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+		<script src="<%templateskin%>/js/mui.min.js"></script>
+		<!--<script src="<%templateskin%>/js/common.js"></script>
+		-->
+		<script>
+			
+			/*MUI初始化*/
+			mui.init();
+			/*向手机发送验证码*/
+//		mui('body').on('tap','#getCode',function(){
+//			sendSMS('#getCode','#txtPhone','/tools/submit_ajax.ashx?action=user_verify_smscode&site=mobile');
+//		});
+		
+			
+			/*向用户的手机发送验证码*/
+//			mui('body').on('tap','#getCode',function(){
+//				SendSMS('#getCode','#txtPhone','/tools/submit_ajax.ashx?action=user_verify_smscode&site=main
+//');
+//			});
+		//切换验证码
+function ToggleCode(obj, codeurl) {
+    $(obj).children("img").eq(0).attr("src", codeurl + "?time=" + Math.random());
+	return false;
+}
+		//向用户手机发送验证码
+			mui('body').on('tap','#getCode',function(){
+				
+				var formdata1 = $('#form1').serialize();
+				console.log(formdata1);
+				mui.ajax('{config.webpath}tools/submit_ajax.ashx?action=user_getpassword&site=mobile',{
+					datatype:'json',
+					data:formdata1,
+					type:'post',
+					success:function(data){
+						data = JSON.parse(data);
+						console.log(data);
+						if(data.status == 1){
+							mui.toast('验证码获取成功');
+						}
+					}
+				})
+			});
+			/*提交用户修改密码的相关数据*/
+			mui('body').on('tap','#pwdagain_submit',function(){
+				console.log('开始提交');
+				var formdata = $('#wjpwd_form').serialize();
+				console.log(formdata);
+				if(document.getElementById('txtPassword').value != document.getElementById('txtPwdAgain').value ){
+					mui.toast('两次密码不一致');
+				}else{
+				
+						mui.ajax('/tools/submit_ajax.ashx?action=user_repassword&site=mobile',{
+							datatype:'json',
+							type:'post',
+							data:formdata,
+							success:function(data){
+								data = JSON.parse(data);
+								if(data.status ==1){
+									mui.toast(data.msg);
+									setTimeout(function(){
+									//	alert(1);
+										window.location.href ='login.aspx'
+									},2000)
+								}else{
+									mui.toast(data.msg)
+								}
+							},
+							error:function(data){
+								mui.toast('失败');
+							}
+						})
+				
+				}
+				
+			})
+		</script>
+	</body>
+
+</html>

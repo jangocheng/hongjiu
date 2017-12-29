@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />		
+		<link rel="stylesheet" href="<%templateskin%>/css/divswitch.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.picker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.poppicker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<title>个人资料</title>
+		<style type="text/css">
+			.mui-input-group  .mui-input-row.headimg label {
+				line-height: 72px;
+				padding-top: 0;
+				padding-bottom: 0;
+			} 
+			.headimg > img {
+				float: right;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				margin: 6px 12px;
+			}
+			#upload-img {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 30%;
+				bottom: 0;
+			}
+			#upload-img > div:first-of-type {
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				opacity: 0;
+			}
+			#upload-img input {
+				opacity: 0;
+			}
+			.colorfff{
+				color: #fff;
+			}
+			.mui-toast-container{
+				bottom: 50%;
+			}
+			#bankcard_list li p a{
+				float: left;
+				width: 50%;
+				height: 30px;
+				line-height: 30px;
+				color: #333;
+				background: #f2f2f2;
+				text-align: center;
+				font-size: 12px;
+			}
+		</style>
+	</head>
+	<body class="mui-fullscreen">
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages">
+				</div>
+			</div>
+		</div>
+		<div class="mui-page" id="setting">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav navlist">
+				<button type="button" id="grzl_goback" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff goback">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>					
+				</button>
+				<h1 class=" mui-title colorfff">个人资料</h1>
+				
+			</div>
+			<div class="mui-page-content personal-data">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view">
+					    <li class="mui-table-view-cell">
+					        <span class="headimg">
+					        	<p>头像</p>
+					        	
+					        	<img src="{userModel.avatar}" id="headimg" alt="" />
+					        	<div id="upload-img">
+					        		<form id='tx_form' name="uploadForm">
+					        			<input id="hideFileName" name="hideFileName" type="hidden">
+					        			<input id="hideY1" name="hideY1" type="hidden" value="0">
+					        			<input id="hideX1" name="hideX1" type="hidden" value="0">
+					        			<input id="hideWidth" name="hideWidth" type="hidden" value="200">
+					        			<input id="hideHeight" name="hideHeight" type="hidden" value="200">
+					        		</form>
+					        	</div>
+					        	
+					        	
+					        	
+					        </span>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <a href="javascript:void(0)" class="mui-navigate-right">
+					        	<p>用户名<span id="nickname">{userModel.user_name}</span></p>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <a href="#nickname_page" class="mui-navigate-right">
+					        	<p>昵称<span id="phone">{userModel.nick_name}</span></p>
+					        </a>
+					    </li>
+                        <%if(groupModel.is_QRcodestate==1)%>
+                        <li class="mui-table-view-cell">
+                             <a href="#" class="">
+                               <p>邀请码<span id="phone">{userModel.QRcodestate}</span></p>
+                            </a>
+                        </li>
+                        <%/if%>
+					    <!--<li class="mui-table-view-cell">
+					        <span class="mui-navigate-right">
+					        	<p>性别<span id="sex">请选择</span></p>
+					        </span>
+					    </li>-->
+						</ul>
+						<ul class="mui-table-view">
+					    <li class="mui-table-view-cell">
+					        <a href="myaddress.aspx" class="mui-navigate-right" id="addbtn" >
+					        	<p>收货地址<span id="address">编辑收货地址</span></p>
+					        </a>
+					    </li>
+					    <li class="mui-table-view-cell">
+					        <a href="change-password.html" id="change_pwd" class="mui-navigate-right" >
+					        	<p>修改密码</p>
+					        </a>
+					    </li>
+					</ul>
+					<ul class="mui-table-view" style="margin-bottom: 10px;">
+					    <li class="mui-table-view-cell">
+					        <a href="#bank_page"class="mui-navigate-right">
+					        	<p>我的银行卡<span id="mycard">绑定</span></p>
+					        </a>
+					    </li>
+					</ul>
+				<button type="button" style="display: none;" id="cancelLogin" class="mui-btn mui-btn-blue mui-btn-block">退出登录</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--
+        	
+        -->
+         <!--
+        	名称修改
+        -->
+        <div class="mui-page" id="nickname_page">
+        	<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" id="goback_nickname" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>
+					
+				</button>
+				<h1 class=" mui-title colorfff"></h1>	
+			</div>
+			<div class="mui-page-content change-name mtp">
+				
+						<div class="mui-input-group">
+						    <div class="mui-input-row">
+							      <form class="fb_from" action="" method="post">
+							        <input type="text"  class="mui-input-clear" name="txtNickName" id="txtNickName" value="{userModel.nick_name}"  placeholder="请输入您的昵称（2-6个字）">
+							        <input type="hidden" name="txtProvince" value="省"/>
+							        <input type="hidden" name="txtCity" value="市"/>
+							        <input type="hidden" name="txtArea" value="区"/>
+							        <input type="hidden" name="txtMobile" value="{userModel.user_name}">
+							        <input type="hidden" name="txtEmail" value="{userModel.user_name}" />
+							        <input type="hidden" name="txtBirthday" value="1" />
+							   	  </form>
+						    </div>
+						</div>
+						<button class="nickname_submit mui-btn mui-btn-blue mui-btn-block" type="button" >保存</button>
+					
+			</div>
+        </div>
+	
+		<!--
+        	联系方式
+        -->
+        <!--<div class="mui-page" id="link_page">
+        	<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>					
+				</button>
+				<h1 class=" mui-title colorfff"></h1>	
+			</div>
+			<div class="mui-page-content modify-mobilephone mtp">
+				<div class="mui-scroll-wrapper" id="customerfile_list">
+					<div class="mui-scroll">
+						 <div class="mui-input-group">
+					        <div class="mui-input-row">
+					        	<form class="fb1_from">
+					        		  <input type="text" id="txtMobile" name="txtMobile" class="mui-input-clear" placeholder="填写您的手机号码">
+					        		<input type="hidden" name="txtProvince" value="省"/>
+							        <input type="hidden" name="txtCity" value="市"/>
+							        <input type="hidden" name="txtArea" value="区"/>
+							       	<input type="hidden" name="txtNickName"  value="11" />
+							        <input type="hidden" name="txtEmail" value="1" />
+							        <input type="hidden" name="txtBirthday" value="1" />
+					        	</form>
+					          
+					           
+					        </div>
+					        <div class="mui-input-row" style="display: none;">
+					            <input type="text" name="txtMobile" class="mui-input-clear" placeholder="填写您收到的手机验证码">
+					        </div>
+		    			</div>
+		    			<button id="link_submit" type="button" class=" mui-btn mui-btn-blue mui-btn-block">确定</button>
+					</div>
+				</div>
+			</div>
+        </div>-->
+        
+        <!--
+        	收货地址
+        -->
+          <div class="mui-page" id="address_page">
+        	<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>
+					
+				</button>
+				<h1 class=" mui-title colorfff">收货地址</h1>	
+			</div>
+			<div class="mui-page-content delivery-address mtp">
+				<div class="mui-scroll-wrapper" id="sh_address_wrap">
+					<div class="mui-scroll">
+						<div>
+						   <ul id="address_list" class="address_list">
+						   	
+							 
+						   </ul>
+			  
+						</div>
+						<button id="add_addressBtn" type="button" class="mui-btn mui-btn-blue mui-btn-block">添加新地址</button>
+					</div>
+				</div>
+			</div>
+        </div>
+        
+        
+        <!--
+        	银行卡 列表
+        -->
+		<div class="mui-page" id="bank_page">
+        	<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>
+					
+				</button>
+				<h1 class=" mui-title colorfff">银行卡绑定</h1>	
+			</div>
+			<div class="mui-page-content my-bankcard  mtp">
+				<div class="mui-scroll-wrapper" id="bankcard_list">
+					<div class="mui-scroll">
+						<ul id="bank_list">
+							
+						</ul>
+						<div id="cardbox">
+		    	
+		    			</div>
+						 <a id="add_bankcardBtn" href="add-bankcard.html" class="mui-btn mui-btn-blue mui-btn-block">添加银行卡</a>
+					</div>
+				</div>
+				
+			</div>
+        </div>
+   	
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/mui.view.js"></script>
+	<script src="<%templateskin%>/js/divswitch.js"></script>
+	<script src="<%templateskin%>/js/mui.picker.js"></script>
+	<script src="<%templateskin%>/js/mui.poppicker.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/common.js" ></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script src="<%templateskin%>/js/webuploader.min.js"></script>
+	<script src="<%templateskin%>/js/linkyz.js"></script>
+	<script>
+		
+		//MUI框架初始化
+		
+		mui.init();
+		
+		//性别选择
+//		var picker = new mui.PopPicker();
+//			var statePicker = document.getElementById('sex');
+//			picker.setData([{value:'0',text:'男'},{value:'1',text:'女'}]);
+//			statePicker.addEventListener("tap",function(){
+//			 	picker.show(function (selectItems) {
+//				    statePicker.innerHTML = selectItems[0].text;
+//				});
+//			});
+		
+		//页面跳转
+		mui('body').on('tap','#addbtn',function(){
+			//alert(1);
+			window.location.href = this.href;
+		})
+		mui('body').on('tap','#add_addressBtn',function(){
+			window.location.href ="add_address.aspx";
+		});
+		mui('body').on('tap','#add_bankcardBtn',function(){
+			window.location.href ="add_bankcard.aspx";
+		});
+		mui('body').on('tap','#grzl_goback',function(){
+			window.location.href = "usercenter.aspx";
+		});
+		mui('body').on('tap','#change_pwd',function(){
+			window.location.href = "change_password.aspx";
+		});
+		
+		//退出登录
+		mui('body').on('tap','#cancelLogin',function(){
+			//mui.toast('退出');
+			window.location.href = "/mobile/usercenter.aspx?action=exit";
+		});
+		
+
+		//修改昵称
+		mui('body').on('tap','.nickname_submit',function(){
+			if($('#txtNickName').val()==""){
+				mui.toast('昵称不能为空');
+			}else{
+				var data1 = $('.fb_from').serialize();
+				mui.ajax('{config.webpath}tools/submit_ajax.ashx?action=user_info_edit',
+					{
+						data:data1,
+						datatype:"string",
+						type:'post',
+						success:function(data){
+							//mui.toast(data.msg);
+							data = JSON.parse(data);
+							if(data.status ==1){
+								mui.toast(data.msg);
+								setTimeout(function(){
+									location.reload();
+								},2000)
+							}else{
+								mui.toast(data.msg);
+							}
+						},
+						error:function(data){
+							mui.toast(data.msg);
+						}
+					}
+				
+					)
+			}
+	
+	});
+	
+	//联系方式修改
+		mui('body').on('tap','#link_submit',function(){
+			var data2 = $('.fb1_from').serialize();
+			
+				mui.ajax('{config.webpath}tools/submit_ajax.ashx?action=user_info_edit',{
+					data:data2,
+					datatype:'string',
+					type:'post',
+					success:function(data){
+						//alert(1);
+						data = JSON.parse(data);
+						if(data.status ==1){
+							mui.toast(data.msg);
+							setTimeout(function(){
+								location.reload();
+							},2000);
+						}
+					}
+				})
+			
+		});
+	
+	
+		
+		//联系方式及其添加
+		
+		
+		//列表页滚动
+			(function($){
+			    $(".mui-scroll-wrapper").scroll({
+			        //bounce: false,//滚动条是否有弹力默认是true
+			        //indicators: false, //是否显示滚动条,默认是true
+			    });
+    
+			})(mui);
+		
+		
+		//获取银行卡列表
+//		function bankcard(page){
+//			$.ajax({
+//				type:"get",
+//				url:"js/bankcard.json",
+//				async:true,
+//				data:{page:page},
+//				datatype:'json',
+//				success:function(data){
+//					var html = "";
+//					
+//					for(var i = 0; i<data.bankcard.length;i++){
+//						var cardNo = data.bankcard[i].bankno;
+//						var cardNojq = cardNo.substr(cardNo.length -4,4);
+//						console.log(bankcard.length);
+//						html += '<li><div class="mui-card"><p>'+data.bankcard[i].bankname +'</p><span>****</span><span>****</span><span>****</span><span>'+cardNojq +'</span></div></li>';
+//					}
+//					$('#bank_list').append(html);
+//				}
+//			});
+//		}
+//		bankcard(1);
+//		var page =1;
+		//上拉加载
+
+	
+		
+		//获取银行卡
+		function banklist(){
+			mui.ajax('/tools/submit_ajax.ashx?action=bankcard_select',{
+				datatype:'string',
+				type:'get',
+				success:function(data){
+				//	alert(9);
+				data = JSON.parse(data);
+				console.log(data);
+						//console.log(JSON.stringify(data));
+					if(data.status == 1){
+						
+						var html ='';
+						for(var i=0;i<data.Rows.length;i++){
+							
+							//html +="<li><a href='add_bankcard'><div class='mui-card'><p>"+data.Rows[i].bank_name+'</p><span>'+data.Rows[i].bank_card+'</span></div></a></li>';
+							html += '<li><a href="add_bankcard.aspx?id='+data.Rows[i].id+'">';
+							html +="<div class='mui-card'><p>"+data.Rows[i].bank_name +"</p><span>";
+							html += data.Rows[i].bank_card + "</span></div></a>";
+							html +="<p class='mui-clearfix'><a href='add_bankcard.aspx?id="+data.Rows[i].id+"'>编辑</a><a href='javascript:void(0)'  class='del_bank' data-id='"+data.Rows[i].id+"'>删除</a></p></li>";
+						}
+						$('#bank_list').append(html);
+					}
+				}
+			})
+		}
+
+		banklist();
+		
+		//删除银行卡
+		mui('body').on('tap','.del_bank',function(){
+			
+			var Bankid =$('.del_bank').attr('data-id');
+			console.log(Bankid);
+			mui.ajax('/tools/submit_ajax.ashx?action=bankcard_delete',{
+				data:{
+					'id':Bankid
+				},
+				type:'post',
+				datatype:'string',
+				success:function(data){
+					data = JSON.parse(data);
+					if(data.status ==1){
+						mui.toast(data.msg);
+						setTimeout(function(){
+							location.reload();
+						},2000)
+						
+					}
+				},
+				error:function(data){
+					mui.toast(data.msg);
+				}
+			})
+		})
+		
+		
+//		头像上传
+	var mask = mui.createMask(function(){
+//				uploader.cancelFile(imgFile)
+			});//callback为用户点击蒙版时自动执行的回调
+
+		var imgFile;
+			
+			var uploader = WebUploader.create({
+			 	auto:true,
+			 	swf:"/js/Uploader.swf",
+			    // 文件接收服务端。
+			    server: '/tools/upload_ajax.ashx?action=UpLoadFile',
+			 	pick:{
+			 		id:$("#upload-img")
+			 	},
+			    // 只允许选择图片文件。
+			    accept: {
+			        title: 'Images',
+			        extensions: 'gif,jpg,jpeg,bmp,png',
+			        mimeTypes: 'image/*'
+			    },
+                fileVal: 'Filedata', //上传域的名称
+                fileSingleSizeLimit: 1024 * 1024 //文件大小
+			})
+			uploader.on('uploadStart',function(file){
+				imgFile = file;
+                mask.show();
+			})
+			uploader.on('uploadSuccess',function(file, data){
+				console.log(data)
+                $("#headimg").attr("src", data.path);
+              
+                uploader.removeFile(file); //从队列中移除
+//              mui.toast("上传成功！");
+                mask.close();
+                //var formdata = $('#tx_form').serialize();
+               // var Src = $('#headimg').attr('src');
+             	// var filename =  $('#hideFileName').attr('src',Src);
+                mui.ajax("/tools/submit_ajax.ashx?action=user_avatar_crop",{
+						data:{
+							'hideFileName':data.path,
+							'hideY1':$('#hideY1').val(),
+							'hideX1':$('#hideX1').val(),
+							'hideWidth':$('#hideWidth').val(),
+							'hideHeight':$('#hideHeight').val()
+						},
+						dataType:"json",
+						type:"post",
+						success:function(data){
+							var html = "";
+							if(data.status == "1"){
+								mui.toast('头像上传成功！');
+							}
+						},
+						error:function(a,b,c){
+							console.log(a+","+b+","+c)
+						}
+					})
+                
+			})
+			uploader.on('uploadError',function(file){
+                mui.toast("上传失败！请重试");
+                mask.close();
+			})
+			
+			
+			mui('body').on('tap','#bank_list li a',function(){
+			//alert(1);
+			location.href = this.href;
+			});
+	</script>
+	
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>拆红包</title>
+	</head>
+	<body>
+		<div class="mui-content chaihb">
+			<div class="hongbao mui-clearfix">
+				<span></span>
+				<span></span>
+			</div>
+			<div class="hb_pro" style="overflow: hidden;">
+				<div class="bd">
+					<ul>
+                        <%set DataTable tb = new Qrcms.BLL.orders().GetList(5, " quiz_result=1 and Order_type=2", " id desc").Tables[0]%>
+                        <%csharp%>
+                            foreach(DataRow row in tb.Rows){
+                        string u_name=Qrcms.Common.Utils.ObjectToStr(row["user_name"]);
+                        u_name = u_name.Remove((u_name.Length < 4 ? 4:u_name.Length)-4);
+                        u_name=u_name+"****";
+                        <%/csharp%>
+						<li>恭喜用户 {u_name} 获得  <%=get_order_article_title(Qrcms.Common.Utils.ObjToInt(row["id"],0))%></li>
+                        <%csharp%>
+                        }
+                        <%/csharp%>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		<div class="mask"  id="mask"></div>
+		<div class="hb_jieguo" id="hb_jieguo">
+			<div class="zhuhe">
+				<p id="jg_txt"></p>
+			
+			</div>
+			<a href="redbao_record.aspx" class="mui-btn goto_show" id="goto_xq">查看详情</a>
+			<span class="closebtn" id="closebtn"></span>
+			<p class="notice">您可以用市场价换购优购价的商品哦！</p>
+		</div>
+		
+			
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript">
+		//alert(1);
+		jQuery(".hb_pro").slide({mainCell:".bd ul",autoPage:true,effect:"leftMarquee",autoPlay:true,interTime:50});
+	</script>
+	<script>
+		mui.init();
+		mui('body').on('tap','span',function(){
+			var jgobj = document.getElementById('jg_txt');
+			var orderNo ='<%=Qrcms.Common.DTRequest.GetString("order_no")%>'; 
+			console.log(orderNo);
+			mui.ajax('/tools/submit_ajax.ashx?action=order_orders_hb',{
+				type:'post',
+				datatype:'string',
+				data:{
+					order_no:orderNo
+				},
+				success:function(data){
+					//alert(99);
+					
+					data = JSON.parse(data);
+						var txt = data.msg;
+						//alert(txt);
+						jgobj.innerText = txt;
+					if(data.status ==1){
+						
+					
+					}else {
+						
+						
+					}
+				}
+			});
+			$('#mask,#hb_jieguo').css('display','block');
+		});
+		mui('body').on('tap','#closebtn',function(){
+			$('#mask,#hb_jieguo').css('display','none');
+		});
+		mui('body').on('tap','#goto_xq',function(){
+			location.href = this.href;
+		})
+		mui('body').on('tap','#closebtn',function(){
+			window.location.href = 'usercenter.aspx';
+		})
+	</script>
+</html>

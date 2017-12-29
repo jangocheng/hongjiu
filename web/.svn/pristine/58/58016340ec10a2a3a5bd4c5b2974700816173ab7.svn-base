@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title>购物车</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<style type="text/css">
+			.mui-bar-tab .mui-tab-item.mui-active{
+				color: #7D0000;
+			}
+		</style>
+	<body>
+		<div class="mui-content shop_cart">
+			<div class="shop_list">
+				<!--<div class="shop_empty">
+					<img src="images/shop_empty.png">
+					<p>购物车还是空的，赶快去购物吧</p>
+				</div>-->
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div id="shopgoods_list" class="shopgoods_list">
+							<div>
+								<div class="mui-input-row mui-checkbox mui-left mui-navigate-right">
+									<label>OPPO旗舰店</label>
+									<input type="checkbox" name="" id="" value="" />
+								</div>
+								<ul class="mui-table-view goods_list">
+									<li class="mui-table-view-cell mui-transitioning">
+										<div class="mui-slider-right mui-disabled">
+											<a href="" class="mui-btn mui-btn-red goods_delete" data-id="">删除</a>
+										</div>
+										<div style="background: url(<%templateskin%>/images/201707041728032461.png) 34px 10px / 100px no-repeat rgb(247, 247, 247); transform: translate(0px, 0px);" class="mui-input-row mui-checkbox mui-left mui-slider-handle">
+											<input type="checkbox" />
+											<p>正品耐克跑步鞋 专业运动员长 跑耐滑防磨</p>
+											<p>颜色：黑色，内存：4G</p>
+											<p>155￥</p>
+											<div class="mui-numbox" data-numbox-step="1" data-numbox-min="0" data-numbox-max="100">
+												<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>	
+												<input type="text" value="1" class="mui-numbox-input" />
+												<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		<div class="shop_btnbox">
+			<div class="mui-input-row mui-checkbox mui-left">
+				<label>
+					全选
+					<p>合计：<span>￥<b>0</b></span></p>
+				</label>
+				
+				<input type="checkbox" />
+				
+			</div>
+			<button class="mui-btn" type="button">
+					结算<span>(0)</span>
+				</button>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a href="index.aspx" class="mui-tab-item ">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <a href="shop_cart.aspx" class="mui-tab-item mui-active">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>
+		    <a href="usercenter.aspx" class="mui-tab-item ">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+			<!--<script id="tbody_template" type="text/html">
+			 {{# for(var i = 0;i<d.shopcart.length;i++){ }}
+							<div class="shopgoods_item">
+								<div class="mui-input-row mui-checkbox mui-left mui-navigate-right">
+									<label>{{d.shopcart[i].shopname}}</label>
+									<input type="checkbox" name="" id="" value="" />
+								</div>
+								<ul class="mui-table-view goods_list">
+									<li class="mui-table-view-cell mui-transitioning">
+										<div class="mui-slider-right mui-disabled">
+											<a href="" class="mui-btn mui-btn-red goods_delete" data-id="">删除</a>
+										</div>
+										<div style="background: url(images/201707041728032461.png) 34px 10px / 100px no-repeat ; transform: translate(0px, 0px);" class="mui-input-row mui-checkbox mui-left mui-slider-handle">
+											<input type="checkbox" />
+											<p>{{d.shopcart[i].proname}}</p>
+											<p></p>
+											<p>￥{{d.shopcart[i].price}}</p>
+											<div class="mui-numbox" data-numbox-step="1" data-numbox-min="0" data-numbox-max="100">
+												<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>	
+												<input type="text" value="1" class="mui-numbox-input" />
+												<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+			 {{# } }}
+			 
+            {{# if(d.count==0){ }}
+               <div class="shop_empty">
+					<img src="<%templateskin%>/images/shop_empty.png">
+					<p>购物车还是空的，赶快去购物吧</p>
+				</div>
+             {{# } }}
+        </script>-->
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script>
+		mui.init();
+		
+			//JS模板引擎
+		function LoadTPL(tplid,viewid,data)
+			{
+			    var tpl = document.getElementById(tplid).innerHTML;
+			   
+			    var render = laytpl(tpl).render(data);
+			  $("#"+viewid).append(render);
+			   
+			 
+			     // $('#'+viewid).append(render);
+			  
+			}
+		
+		//页面滚动
+		(function($){
+			console.log('gd');
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+		
+		/*底部导航跳转*/
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		
+		mui('body').on('tap','.goods_delete',function(){
+			var id = $(this).attr('data-id');
+			var btnArray = ["否","是"];
+			mui.confirm('',"确定删除？",btnArray,function(e){
+				if(e.index == 1){
+					console.log("删除成功");
+				}
+			})
+			
+		})
+		
+		/*购物车商品加载*/
+//		function loadsj(page){
+//			$.ajax({
+//				type:"get",
+//				url:"js/shopcart.json",
+//				async:true,
+//				datatype:'json',
+//				data:{page:page},
+//				success:function(data){
+//					console.log('进入购物车');
+//						LoadTPL('tbody_template','shopgoods_list',data);
+//				}
+//			});
+//		}
+//		loadsj(1);
+	</script>
+</html>

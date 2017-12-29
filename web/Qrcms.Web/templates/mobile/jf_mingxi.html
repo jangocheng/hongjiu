@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>积分明细</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style>
+		.mui-content{
+			font-size: 12px;
+		}
+		.mui-content .mui-table-view-cell{
+			display: flex;
+		}
+		.mui-content .mui-table-view-cell>span{
+			text-align: center;
+			display: block;
+			flex: 1;
+		}
+					.page-list>span:first-child{
+	display: none;
+}
+.page-list{
+	text-align: center;
+	margin: 20px 0;
+	margin-left: 15%;
+}
+.page-list a,.page-list span {
+    display: block;
+    float: left;
+    margin: 2px 0 0 -1px;
+    padding: 4px 12px;
+    
+    height: 30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+.page-list .current{
+	    color: #fff;
+    background: #BF0A0A;
+    border-color: #BF0A0A;
+}
+		
+	</style>		
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+    <li class="mui-table-view-cell" style="font-weight: bold;color:dodgerblue;">积分明细</li>
+      <%set DataTable pointList=get_user_point_list(10, page,"user_id="+userModel.id, out totalcount)%> <!--取得一个DataTable-->
+          <%set string pagelist=get_page_link(10, page, totalcount, "/mobile/jf_mingxi.aspx?action=list&page=__id__")%> <!--取得分页页码列表-->
+          <%foreach(DataRow dr in pointList.Rows)%>
+    <li class="mui-table-view-cell">
+    	
+    	<span>{dr[add_time]}</span>
+    	<span>{dr[remark]}</span>
+    	<span> <%if({strtoint({dr[value]})}>0)%>
+                +{dr[value]}
+                <%else%>
+                {dr[value]}
+                <%/if%></span>
+               
+    </li>
+     <%/foreach%>
+          <%if(pointList.Rows.Count==0)%>
+           <li class="mui-table-view-cell">暂无记录...</li>
+          <%/if%>
+   <div class="page-list">{pagelist}</div>
+</ul>
+		</div>
+		
+	</body>
+
+</html>
+<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+<script src="<%templateskin%>/js/mui.min.js"></script>
+<script type="text/javascript">
+</script>

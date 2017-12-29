@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!--微信支付AppID-->
+  <appid>wxfb9ac12cfe1b865e</appid>
+  <!--微信支付AppSecret-->
+  <appsecret>99d0d40adac76915e7bb8f4f2c297771</appsecret>
+  <!--微信支付商户号-->
+  <mechid>1400389602</mechid>
+  <!--微信支付商户密钥-->
+  <mechkay>kogde5481254ad451wsf1548awfs4532</mechkay>
+  <!--支付完成后的回调处理页面-->
+  <notify_url>/api/payment/weixinwap/notify_url.aspx</notify_url>
+</Root>

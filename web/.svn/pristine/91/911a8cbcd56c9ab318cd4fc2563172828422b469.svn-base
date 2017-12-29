@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<title>活动说明</title>
+		<style type="text/css">
+			body{
+				font-size: 12px;
+				background: #F2F2F2;
+			}
+			.wenzhang h3{
+				margin-bottom: 15px;
+				font-size: 18px;
+				font-weight: normal;
+			}
+			.wenzhang{
+				padding: 15px;
+			}
+			.wenzhang h4{
+				font-size: 16px;
+				line-height: 24px;
+				font-weight: normal;
+				
+			}
+			.wenzhang p{
+				line-height: 24px;
+				color: #333;
+			}
+			.mui-content{
+				background: #F4F4F4 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content wenzhang">
+			<h3>活动说明</h3>
+			<h4>
+				一、在升级区购买指定的升级商品后，<span style="color: #7D0000;">可获得一次商品价值增值换购的机会</span>。
+			</h4>
+			<h4>二、购买成功后，可在商城升级定单界面查看定购的商品。您可以进行升级或立即提货，点击升级跳转到升级活动页面。</h4>
+			<h4>三、在升级区活动页面可按您的意向选择动“猜奇偶”或“拆红包”选项。</h4>
+			<div>
+				<p>1. “猜奇偶”<span style="color: #7D0000;">将根据当期开奖的时时彩公布最后一位尾数的奇偶结果作为是否升级成功的评判标准，竞猜正确则升级成功，反之则升级失败。</span></p>
+				<p style="color: #7D0000;">猜奇偶时间：周一至周日上午10：00-凌晨02:00</p>
+				<p>2.“拆红包”将根据买家竞猜的<span style="color: #7D0000;">卡片翻牌之后的结果“升级成功”或“升级失败”生成定单</span>，当买家竞猜成功时，买家享受商城给予该商品的特价价格生成定单优惠件，当买家竞猜失败时，商城则以该商品的原价生成定单；</p>
+				<p style="color: #7D0000;">拆红包时间：周一至周日09:00am-02:00am</p>
+				
+			</div>
+			<h4>四、游戏结束升级结果</h4>
+			<p>
+				1.升级成功：<span style="color: #7D0000;">客户购买的商品即可享受升级为更高价值的商品，此商品可在我的订单中查看，选择“提货”或者 “提款”。</span>
+			</p>
+			<p>
+				2.升级失败： 客户购买的商品将不享受任何优惠，此商品可在我的定单中查看，只可选择“提货”
+			</p>
+			<p>
+				3.开奖中：当点击升级后，商城有权暂时冻结用于升级的商品，此时无法对订单进行任何操作，等到升级产生结果后方可进行下一步操作。
+			</p>
+			<p>
+				4.当天参与升级或猜红包的订单，可在“我的红包记录”与“我的升级记录”里面查看
+			</p>
+			<h4>五、提货</h4>
+			<p>在商城促销定单中的商品，您可以击 “提货”按钮，进行提货，商城将会发送货物。
+<span style="color: #7D0000;">（注意：任何未操作的单子，一旦点击合并，就只能合并提货！）</span></p>
+			<h4>六、提款</h4>
+			<p style="color: #7D0000;">升级成功的商品在未提货的前提下可直接在“我的订单”中申请提款。</p>
+			<h4>七、提货须知</h4>
+			<p>可在商城购买任意商品，选择提货，商城将会在7个工作日内为您安排发货。发货后1-2日内未收到任何异议将视为自动确认收货。
+</p>
+			<h4>八、查看</h4>
+			<p>未完结的单子一律会在“全部订单”里面可查看（未完结单子：对单子未选择退货，提款；或者已选择提货未收到货的）</p>
+			
+		</div>
+	</body>
+	
+</html>

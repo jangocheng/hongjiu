@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet"  href="<%templateskin%>/css/base.css">
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css">				
+		<title>设置收货地址</title>
+		<style type="text/css">
+			.mui-card{
+				margin: 0;
+				padding: 0 10px;
+				min-height: 100px;
+				box-shadow: none;
+				position: relative;
+			}
+			.choose_add .mui-card p{
+				height: 30px;
+				line-height: 30px;
+				color: #333;
+				
+			}
+			.choose_add .mui-card p span{
+				float: right;
+			}
+			.choose_add .mui-card div p{
+				margin-bottom: 0;
+				line-height: 24px;
+				color: #333;
+				padding-right: 15px;
+			}
+			.choose_add .mui-card:after{
+				position: absolute;
+				height: 1px;
+				width: 100%;
+				left: 12px;
+				bottom: 0;
+				background: #e5e5e5;
+				content: '';
+			}
+			.choose_add .mui-card.mui-checkbox{
+				right: 0;
+				margin-top: 0;
+			}
+			.choose_add .mui-card input[type=checkbox]:before {
+    			font-size: 19px;
+			}
+			.choose_add .mui-card input[type=checkbox] {
+			    border: 1px solid transparent;
+			    width: 15px;
+			    height: 15px;
+			    border-radius: 50%;
+  
+  				 } 
+	  		 .choose_add .mui-card span.mui-checkbox{
+	  		 	position: absolute;
+	  		 	top: 45px;
+	  		 	right: -3%;
+  		 	}
+  		 	.choose_add .mui-checkbox input[type='checkbox']:checked:before {
+    color: #7D0000 !important;}
+    		#add_addressBtn{
+    			  position: fixed;
+    			  bottom: 0;
+    width: 94%;
+    left: 3%;
+    line-height: 1;
+    padding: 12px 0;
+    font-size: 16px;
+    background: #7D0000;
+    border: 1px solid #7D0000;
+    		}
+    		.mui-toast-container{
+    			bottom: 50%;
+    		}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content choose_add">
+			
+			 <%set DataTable list=get_user_addr_book_list(15, page, "user_id="+userModel.id, out totalcount)%><!--取得一个DataTable-->
+          <%set string pagelist=get_page_link(15, page, totalcount, "useraddress", "__id__")%> <!--取得分页页码列表-->
+          	<%foreach(DataRow dr in list.Rows)%>
+			<div class="mui-card szdz">
+				<p class="mui-clearfix">{dr[accept_name]}<span>{dr[mobile]}</span></p>
+				<div>
+					<p>{dr[area]} {dr[address]}</p>
+					<input type="hidden" value="{dr[id]}" class="add_id" />
+				</div>
+
+				<span class="mui-checkbox mui-clearfix">
+					
+						<input type="checkbox" class="gou" name="szdz" id="szdz"/>
+					
+					
+					<a href="" class="back_link"></a>
+				</span>
+				
+			</div>
+			 <%/foreach%>
+			  <%if(list.Rows.Count==0)%>
+           		<li style="line-height: 30px;text-align: center;padding: 20px 0;">暂无收货地址</li>	
+          	<%/if%>
+			 
+           		<button id="add_addressBtn" type="button" class="mui-btn mui-btn-blue mui-btn-block">添加新地址</button>
+          
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		mui.init();
+		mui('body').on('tap','#add_addressBtn',function(){
+			//var orderNo ='<%=Qrcms.Common.DTRequest.GetString("order_no")%>';
+			var orderNo = getQueryString('order_no');
+				location.href = 'add_address.aspx?choose=1&orderNo='+orderNo;
+		});
+		mui('body').on('tap','.gou',function(){
+			$('.back_link').addClass('mui-action-back');
+		});
+		
+		mui('body').on('tap','#add_add',function(){
+			location.href = this.href ;
+		});
+		
+		//设置收货地址
+		mui('body').on('tap','.szdz',function(){
+			$(this).find('input[type=checkbox]').attr('checked',true);
+			var Addid = $('.add_id').val();
+			//var orderNo ='<%=Qrcms.Common.DTRequest.GetString("order_no")%>'; 
+			var orderNo = getQueryString('order_no');
+			console.log(orderNo);
+			var btnArray = ['确认', '取消'];
+			mui.confirm('是否设置为提货地址？', '提货', btnArray, function(e) {
+				if(e.index ==0){
+					mui.ajax('/tools/submit_ajax.ashx?action=order_orders_dz&order_no='+orderNo,{
+						data:{
+							'id':Addid
+						},
+						datatype:'string',
+						type:'post',
+						success:function(data){
+							data = JSON.parse(data);
+							if(data.status ==1){
+								mui.toast(data.msg);
+								setTimeout(function(){
+									location.href = 'my_orderlist.aspx';
+								},2000)
+							}else{
+								mui.toast(data.msg);
+							}
+						},
+						error:function(data){
+							mui.toast("失败");
+						}
+					})
+				}else{
+					mui.toast('您已取消设置该地址');
+					$("input[type=checkbox]").removeAttr("checked");
+				}
+			})
+		})
+</script>
+</html>

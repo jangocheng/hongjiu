@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title>商家订单详情</title>
+		<link rel="stylesheet" href="css/base.css" />
+		
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/mui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+			<div class="mui-content">
+			<ul class="mui-table-view">
+				 <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
+			            <div class="mui-media-body gethuo">
+			                <span>收货人：小刘</span>    <span>电话：13361066302</span>
+			                <p class=''>收货地址：山东省,济南市,高新区 齐鲁文化创意基地</p>
+			            </div>
+			        </a>
+			    </li>
+			</ul>
+			<ul class="mui-table-view mall-order">
+				<li class="mui-card">
+					<p>天地华宇手机专卖</p>
+			    	<div class="goods-list">
+			    		<div>
+				    		<p>魅族pro7</p>
+				    		<!--<img src="images/fqg-icon.png" alt="" />-->
+				    		<p>全网通；金色；16GB</p>
+				    		<p>12期；零首付</p>
+				    		<p>￥2999<span>x 1</span></p>
+				    	</div>
+			    		<div>
+				    		<p>vivo X9 全网通 4GB+64GB 移动联通 电信4G手机 活力蓝</p>
+				    		<!--<img src="images/fqg-icon.png" alt="" />-->
+				    		<p>全网通；金色；16GB</p>
+				    		<p>12期；零首付</p>
+				    		<p>￥2999<span>x 1</span></p>
+				    	</div>
+			    	</div>
+			    	<div>
+			    		<p class="allcount">共2件商品，商品总金额<span>￥6,120</span><br>
+			    			配送费用<span>￥10.00</span><br>
+			    			支付手续费<span>￥31.00</span><br>
+			    			发票税金<span>￥10.00</span><br>
+			    			积分总计<span>￥10</span><br>
+			    			订单总金额<span>￥6,500</span>
+			    		</p>
+			    		<p>
+			    			<a href="">立即发货</a>
+			    		</p>
+			    	</div>
+				</li>
+			</ul>
+			
+			
+		</div>
+	</body>
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="js/mui.min.js"></script>
+</html>

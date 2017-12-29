@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/swiper-3.4.2.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<title>我的订单</title>
+		<style type="text/css">
+			.mui-control-item{
+				position: relative;
+			}
+			.mui-control-item.mui-active:after{
+				position: absolute;
+				bottom: 0;
+				left: 25%;
+				width: 50%;
+				content: '';
+				height: 4px;
+				background: #c42e2e;							
+			}
+			.orderBox{
+				display: none;
+				/*margin-top: 50px;*/
+			}
+			.orderbox_a {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+			}
+			.orderbox_a a{
+				width: 20%;
+				float: left;
+				color: #333;
+				text-align: center;
+				line-height: 40px;
+				font-size: 12px;
+				position: relative;
+			}
+			.orderbox_a a.active{
+				color: #BF0A0A;
+			}
+			.orderbox_a a.active:after{
+				    position: absolute;
+				    bottom: 0;
+				    left: 25%;
+				    width: 50%;
+				    content: '';
+				    height: 2px;
+				    background: #c42e2e;
+			}
+			.page-list>span:first-child{
+				display: none;
+			}
+			.page-list{
+				text-align: center;
+				margin: 20px 0;
+				margin-left: 15%;
+			}
+			.page-list a,.page-list span {
+			    display: block;
+			    float: left;
+			    margin: 2px 0 0 -1px;
+			    padding: 4px 12px;
+			   /* line-height: 30px;*/
+			    height: 30px;
+			    border: 1px solid #e1e1e1;
+			    background: #fff;
+			    color: #333;
+			    font-size: 14px;
+			    text-decoration: none;
+			}
+			.page-list .current{
+				    color: #fff;
+			    background: #BF0A0A;
+			    border-color: #BF0A0A;
+			}
+			.my_order .goods-list>a>div>p:last-child {
+				font-size: 13px;
+				color: #333333;
+				font-weight: bold;
+				padding-right: 20px;
+				line-height: 22px;
+				padding-bottom: 10px;
+			}
+			.btn_group{
+				width: 100%;
+				text-align: center;
+				padding: 5px 0;
+				height: 30px;
+				position: relative;
+				
+			}			
+			.btn_group a {
+				color: #fff;
+				display: block;
+				float: right;
+				line-height: 25px;
+				margin-right: 5px;
+				width: 65px;
+				height: 25px;
+			}
+			.btn_group:after{
+				position: absolute;
+				height: 1px;
+				bottom:0
+				left: 12px;
+				background: #E5E5E5;
+				content: '';
+				width: 100%;
+			}			
+			.btn_group .tihuo {
+				background-color: #cc3d44;
+			}			
+			.btn_group .tuihuo {
+				background-color: #177cb0;
+			}		
+			.btn_group .hongbao {
+				background-color: #ff0000;
+			}			
+			.btn_group .shengji {
+				background-color: #febb2c;
+			}
+			.my_order .goods-list > div >a>p:first-of-type {
+			    font-size: 13px;
+			    color: #333333;
+			    padding-top: 30px;
+			    font-weight: bold;
+			    padding-right: 20px;
+			    line-height: 22px;
+			}
+			.my_order .goods-list >a >div{
+				padding-left: 12px;
+			}
+			.my_order .goods-list >a> div .goods_img{
+				float: left;
+				width:100px;
+				height: 50px;	
+				margin-top: 20px;
+			}
+				.my_order .goods-list >a> div .goods_img img{
+					height: 80px;
+					display: block;
+					margin: 0 auto;
+				}
+	
+			.hbth{
+				width: 60px;
+				height:60px;
+				background: #7D0000;
+				color: #fff;
+				text-align: center;
+				line-height:60px;
+				border-radius: 50%;
+				font-size: 12px;
+				position: fixed;
+				top: 5px;
+				right: 5px;
+				z-index: 999;
+				
+			}
+			.mui-toast-container{
+				bottom: 50%;
+			}
+		</style>
+	</head>
+	<body>
+<%csharp%>
+int status=DTRequest.GetInt("status",0);
+string strWhere="user_id="+userModel.id;
+if(status!=0)
+{
+strWhere+=" and status ="+status;
+}
+<%/csharp%>
+		<!--<header class="mui-bar mui-bar-nav">  
+	       	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>  
+	        <h1 class="mui-title mytitle">我的订单</h1>  
+	    </header> -->
+		<div class="mui-content my_order">
+			
+
+				<!--	<div  style="width: 100%;background: #fff;" id="orderbox_a" class=" mui-clearfix orderbox_a">
+						
+								<a class="<%=status==0?"active":""%>" href="/mobile/my_orderlist.aspx">
+									全部
+								</a>
+							
+						
+								<a  class="<%=status==1?"active":""%>"  href="/mobile/my_orderlist.aspx?status=1">
+									待支付
+								</a>
+							
+							
+								<a  class="<%=status==2?"active":""%>" href="/mobile/my_orderlist.aspx?status=2">
+									待收货
+								</a>
+							
+							
+								<a  class="<%=status==3?"active":""%>"   href="/mobile/my_orderlist.aspx?status=3">
+									已完成
+								</a>
+							
+							
+								<a  class="<%=status==4?"active":""%>"  href="/mobile/my_orderlist.aspx?status=4">
+									退款/退货
+								</a>
+					</div>
+				-->
+				<a href="hbth.aspx" class="hbth">合并提货</a>
+					
+						<div id="scroll1" class="mui-scroll-wrapper orderBox" style="display: block;" >
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="all_list">
+									<!--
+                                    	全部订单
+                                    -->
+  <%set DataTable list=get_order_list(10, page, strWhere, out totalcount)%> <!--取得一个DataTable-->
+          <%set string pagelist=get_page_link(10, page, totalcount,"/mobile/my_orderlist.aspx?status="+status+"&page=__id__")%> <!--取得分页页码列表-->
+          <%foreach(DataRow dr in list.Rows)%>
+
+<li class="mui-card">
+										<p>订单号：<b>{dr[order_no]}</b><b style="float: right;margin-right: 15px;color: #11709e;font-size:12px;">
+<%csharp%>
+string m_t="";
+string ot=dr["order_type"].ToString();
+if(ot=="1")
+{
+m_t="升级";
+}
+if(ot=="2")
+{
+m_t="红包";
+}
+<%/csharp%>
+{m_t}
+
+</b></p>
+									    	<div class="goods-list">
+									    		<%csharp%>
+Qrcms.Model.cart_items modelt=get_article(dr["order_no"].ToString());
+<%/csharp%>
+									    		
+              <a href="upgrade_show.aspx?id={dr[id]}">
+              
+									    		<div class="mui-clearfix">
+									    		<div class="goods_img">
+									    				<img src="{modelt.img_url}" >
+									    		</div>
+										    		<p>{modelt.title}   ｘ {modelt.quantity}
+</p>
+										    		<p class="mui-text-right"> 
+										    			
+										    			<%=show_status(dr)%>
+										    		</p>
+										    		
+										    	</div>
+										    	</a>
+										    	
+									    	</div>
+
+									    	<div class="btn_group clearfix">
+                                               <%=show_btn(dr)%>								
+								
+								
+								
+							</div>
+									    	<div>
+									    		
+									    		<p>
+									    			<span>实付款：<i>￥{dr[order_amount]}</i></span>
+                                                    <%if({dr[point]}!="0")%>
+                                                    <span>积分：<i>￥{dr[point]}</i></span>
+                                                    <%/if%>
+									    			 <!--<%if({strtoint({dr[status]})}<2)%>
+									    			<a class="quxiao" onclick="clickSubmit('{config.webpath}tools/submit_ajax.ashx?action=order_cancel&order_no={dr[order_no]}');">取消订单</a>
+									    			  <%/if%>
+									    			 <%if(get_order_payment_status({strtoint({dr[id]})}))%>
+									    			<a  class="fukuan">立即付款</a></p>
+									    			  <%/if%>
+									    			   <%if({strtoint({dr[status]})}>2)%>
+									    			   <a href="" class="fukuan">删除</a>
+									    			     <%/if%>
+									    			      <%if({strtoint({dr[status]})}==2)%>
+									    			   	<a href="" class="fukuan">确认收货</a>
+									    			   	<%/if%>
+									    			   	  <%if({strtoint({dr[status]})}==3)%>
+									    			   	<a href="" class="fukuan">已完成</a>
+									    			   	<%/if%>-->
+									    	</div>
+									</li>
+<%/foreach%>
+
+							  			
+          								<%if(totalcount<1)%>
+													<li class="mui-card">
+														<p style="text-align: center;line-height: 40px;">暂无相关订单</p>
+													</li>
+													  <%/if%>
+
+								</ul>
+								<div class="page-list mui-clearfix">
+							  				
+											{pagelist}
+							  	</div>
+							</div>
+						</div>
+					
+					
+						<div class="mui-scroll-wrapper  orderBox">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="dfk_list">
+									<!--
+                                    	待
+                                    -->
+									<li class="mui-card">
+										<!--	<p>OPPO旗舰店<span>待付款</span></p>-->
+									    	<div class="goods-list">
+									    		
+									    		<div style="background: #fff url(images/myorder1.png) no-repeat 12px 10px/100px 100px;min-height: 100px;">
+										    		<p>买1箱得2箱 法国原瓶进口波尔多AOC 红酒MS干红葡萄酒整箱</p>
+										    		
+										    	</div>
+										    	
+									    	</div>
+									    	<div>
+									    		
+									    		<p>
+									    			<span>实付款：<i>￥2999</i></span>
+									    			<a class="quxiao">取消订单</a>
+									    			<a  class="fukuan">立即付款</a></p>
+									    	</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+												
+						<div class="mui-scroll-wrapper orderBox">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="dsh_list">
+									<!--
+                                 			  待收货列表
+                                    -->
+									<li class="mui-card">
+									
+								    	<div class="goods-list">
+								    	
+								    		<div style="background: #fff url(images/myorder1.png) no-repeat 12px 10px/100px 100px; min-height: 100px;">
+									    		<p>买1箱得2箱 法国原瓶进口波尔多AOC 红酒MS干红葡萄酒整箱</p>
+									    		
+									    	</div>
+									    	
+								    	</div>
+								    	<div>
+								    		
+								    		<p>
+								    			<span>实付款：<i>￥2999</i></span>
+								    			<a class="tuikuan" >查看物流</a><a class="shouhuo" >确认收货</a></p>
+								    	</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					
+					
+						<div class="mui-scroll-wrapper orderBox">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="ywc_list">
+									<!--
+                                    	已完成列表
+                                    -->
+									<li class="mui-card">
+										
+								    	<div class="goods-list">
+								    	
+								    		<div style="background: #fff url(images/myorder1.png) no-repeat 12px 10px/100px 100px;min-height: 100px;">
+									    		<p>买1箱得2箱 法国原瓶进口波尔多AOC 红酒MS干红葡萄酒整箱</p>
+									    		
+									    	</div>
+									    	
+								    	</div>
+								    	<div>
+								    		
+								    		<p>
+								    			<span>实付款：<i>￥2999</i></span>
+								    			<a href="">已完成</a></p>
+								    	</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					
+					
+						<div class="mui-scroll-wrapper orderBox">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="tk_list">
+									<!--
+                                   		 退款列表	
+                                    -->
+									<li class="mui-card">
+										
+								    	<div class="goods-list">
+								    		
+								    		<div style="background: #fff url(images/myorder1.png) no-repeat 12px 10px/100px 100px;min-height: 100px;">
+									    		<p>金立豪华纪念版</p>
+									    		
+									    	</div>
+									    	
+								    	</div>
+								    	<div>
+								    	
+								    		<p>
+								    			<span>实付款：<i>￥2999</i></span>
+								    			<a hrel="">退款</a></p>
+		    							</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+				
+					
+				
+				<!--
+                	group结束
+                -->
+			
+		</div>
+		
+		<!--
+        	全部订单
+        -->
+      
+       
+       
+     
+        
+     
+	</body>
+	<!--
+    	相关文件 引入
+    -->
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/artdialog/dialog-plus-min.js"></script>
+	<script src="<%templateskin%>/js/dingdan.js"></script>
+	<script>
+		//MUI框架初始化
+		mui.init();
+		
+//		//tab切换函数
+//		 function tab(){
+//		 	var orderbox_a = document.getElementById('orderbox_a');
+//		 	var aobj =  orderbox_a.getElementsByTagName('a');
+//		 	console.log(aobj.length);
+//		 	var boxitem = document.getElementsByClassName('orderBox');
+//		 	console.log(boxitem.length);
+//		 	for(var i = 0; i<aobj.length;i++){
+//		 		aobj[i].index = i;
+//		 		aobj[i].onclick = function(){
+//		 			for(var j = 0; j<boxitem.length;j++){
+//		 				aobj[j].className ='';
+//		 				boxitem[j].style.display = 'none';
+//		 			}
+//		 			aobj[this.index].className ='active';
+//		 			boxitem[this.index].style.display ='block';
+//		 		}
+//		 	}
+//		 }
+//		 tab();
+		
+		mui('body').on('tap','#orderbox_a a',function(){
+			console.log(1);
+			location.href = this.href;
+			return false;
+		});
+		
+		mui('body').on('tap','.page-list a',function(){
+			location.href = this.href;
+		});
+		
+		//提货
+		mui("body").on("tap",".tihuo",function(){
+//			for(var i = 0; i<$('.tihuo').length;i++){
+//				console.log($('.tihuo').length);
+//				var orderNo = $('.tihuo').eq(i).attr('data-no');
+//			}
+		    //		
+		    var _nl=$(this).attr('data-quantity');
+		    var dz={config.dz_freight};
+		    var dj={config.dj_freight};
+		    var zyf=(_nl -1) * dz + dj;
+		    //alert(dz+dj+_nl);
+			var orderNo = $(this).attr('data-no');
+			var btnArray = ['确认', '取消'];
+			mui.confirm('运费'+zyf+'元，是否确认提货？', '订单列表', btnArray, function(e) {
+				if(e.index == 0){
+					$('.tihuo').attr('href','choose_add.aspx');
+//					mui.openWindow({
+//						url:"choose_add.aspx?order_no="+orderNo,
+//						id:"choose_add.aspx?order_no="+orderNo
+//					});
+					location.href = 'choose_add.aspx?order_no='+orderNo;
+					
+				}else{
+					mui.toast('您已取消提货');
+				}
+			})
+		});
+		
+		//退货
+		mui("body").on("tap",".tuihuo",function(){
+			var btnArray = ['确认', '取消'];
+			console.log($('.tuihuo').attr('data-no'));
+			var orderNo = $('.tuihuo').attr('data-no');
+			mui.confirm('是否确认退货？', '订单列表', btnArray, function(e) {
+				if(e.index == 0){
+					mui.ajax('/tools/submit_ajax.ashx?action=order_orders_th',{
+						type:'post',
+						datatype:'string',
+						data:{
+							order_no:orderNo
+						},
+						success:function(data){
+							//alert(1);
+							data = JSON.parse(data);
+							if(data.status == 1){
+								mui.toast(data.msg);
+								setTimeout(function(){
+									window.location.href = 'my_orderlist.aspx';
+								},2000)
+							}
+						}
+					})
+				}
+			})
+		});
+		
+		mui('body').on('tap','.goods-list>a',function(){
+			location.href = this.href ;
+		});
+		mui('body').on('tap','.btn_group>a',function(){
+			location.href = this.href ;
+		});
+		
+		//页面滚动
+		(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+
+		//退货
+		mui('body').on('tap','.hbth',function(){
+			location.href = this.href;
+		})
+	
+//	
+	</script>
+</html>

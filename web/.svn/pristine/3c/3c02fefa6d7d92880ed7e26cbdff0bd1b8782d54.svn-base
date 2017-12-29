@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>确认发货</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.picker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.poppicker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+	</head>
+	<body>
+		<div class="mui-content deliver-goods">
+		    <div class="mui-input-group">
+		        <div class="mui-input-row">
+		            <label>配送方式</label>
+		            <input id="selectMode" type="text" readonly name="express_name" value="请选择配送方式">
+		            <input type="hidden" name="express_id" />
+		        </div>
+		        <div class="mui-input-row">
+		            <label>物流单号</label>
+		            <input type="text" name="express_no" class="mui-input-clear" placeholder="请输入物流单号">
+		        </div>
+		    </div>
+		    <button type="button" class="mui-btn mui-btn-blue mui-btn-block">确认发货</button>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/mui.picker.js"></script>
+	<script src="<%templateskin%>/js/mui.poppicker.js"></script>
+	<script>
+		mui.init();
+		/*商家发货，配送方式选择*/
+		var picker = new mui.PopPicker();
+			var statePicker = document.getElementById('selectMode');
+			picker.setData([{value:'0',text:'圆通'},{value:'1',text:'申通'}]);
+			statePicker.addEventListener("tap",function(){
+			 	picker.show(function (selectItems) {
+				    statePicker.value = selectItems[0].text;
+				});
+			});
+	</script>
+</html>

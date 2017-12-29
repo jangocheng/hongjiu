@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.poppicker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.picker.css" />
+		<title>编辑地址</title>
+		<style type="text/css">
+			.mui-input-row a{
+				font-size: 14px;
+			} 
+		</style>
+	
+	</head>
+	<body>
+			<div class="mui-content add-address">
+		    <div class="mui-input-group">
+		  	<form  id="add_addressform">
+		  		<div class="mui-input-row">
+		            <label>收货人</label>
+		            <input type="text" name="txtAcceptName" id="txtName" class="mui-input-clear" placeholder="请输入收件人姓名" datatype="name" errormsg="请正确填写收货人姓名" value="{model.accept_name}">
+		            <input type="hidden" value="{model.id}" id="add_id" />
+		        </div>
+		        <div class="mui-input-row">
+		            <label>联系电话</label>
+		            <input type="text" datatype="phone" errormsg="请填写正确的手机号码" name="txtMobile" id="txtPhone" class="mui-input-clear" placeholder="请输入收件人电话" value="{model.mobile}">
+		        </div>
+		        <div class="mui-input-row">
+		            <p class="mui-navigate-right selcity">所在城市<span id="cityname">请选择</span></p>
+		            <input type="hidden" name="txtProvince" value="" id="sheng" />
+		            <input type="hidden" name="txtCity" value="" id="shi" />
+		            <input type="hidden" name="txtArea" value="" id='qu' />
+		        </div>
+		        <div class="mui-input-row mui-hidden">
+		        	<input type="hidden" name="txtEmail" id="txtEmail" value="1" />
+		        </div>
+		        <div class="mui-input-row mui-hidden">
+		        	<input type="hidden" name="txtTelphone" id="txtTelphone" value="1" />
+		        </div>
+		        <div class="mui-input-row mui-hidden">
+		        	<input type="hidden" name="txtPostCode" id="txtPostCode" value="1" />
+		        </div>
+		      
+		        <div class="mui-input-row">
+		            <label>详细地址</label>
+		            <input type="text" id="txtAddress" name="txtAddress" datatype="notnull"   class="mui-input-clear" placeholder="请输入详细地址 具体到门牌号" errormsg="请填写详细地址" value="{model.address}">
+		        </div>
+		        <div class="mui-input-row ">
+		        		<input type="text" name="txtCode" id="txtCode" />
+		        	 
+		        </div>
+		        <div class="mui-input-row ">
+		        	 <a href="javascript:;" onclick="ToggleCode(this, '{config.webpath}tools/verify_code.ashx');return false;" style="margin-top: 10px;float: left;"><img src="{config.webpath}tools/verify_code.ashx" width="80" height="22" align="absmiddle" /> 看不清楚？</a>
+		        </div>
+		    </div>
+		    <div class="mui-card">
+		    	设为默认
+		    	<div class="mui-switch mui-switch-mini mui-active" id="moren">
+				  <div class="mui-switch-handle"></div>
+				  <input type="hidden" name="is_default" value="1"/>
+				</div>
+		    </div>
+		  	</form>
+		    <button id="add_save" type="button" class="mui-btn mui-btn-blue mui-btn-block">保存</button>
+		</div>
+		<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+		<script src="<%templateskin%>/js/mui.min.js"></script>
+		<script src="<%templateskin%>/js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/PCASClass.js"></script>
+		<script src="<%templateskin%>/js/mui.picker.js"></script>
+		<script src="<%templateskin%>/js/mui.poppicker.js"></script>
+		<script src="<%templateskin%>/js/city.js"></script>
+		<script>
+		mui.init();
+			var selCity = new mui.PopPicker({
+				layer:3
+			})
+			selCity.setData(cityData);
+			mui(".selcity")[0].addEventListener("tap",function(){
+				selCity.show(function(SelectedItem) {
+					mui("#cityname")[0].innerHTML = SelectedItem[0].text+" "+SelectedItem[1].text+" "+SelectedItem[2].text;
+					mui("input[name=txtProvince]")[0].value = SelectedItem[0].text;
+					mui("input[name=txtCity]")[0].value = SelectedItem[1].text;
+					mui("input[name=txtArea]")[0].value = SelectedItem[2].text;
+				})
+		});
+		</script>
+		<script type="text/javascript">
+	    $(function(){
+			//初始化地区
+            var mypcas = new PCAS("txtProvince,所属省份", "txtCity,所属城市", "txtArea,所属地区");
+			var areaArr = ("{model.area}").split(",");
+			if (areaArr.length == 3) {
+              mypcas.SetValue(areaArr[0], areaArr[1], areaArr[2]);
+            }
+		});
+	  </script>
+	  <script>
+	  	 mui('body').on('tap','#add_save',function(){
+	  	 	var formdata = $('#add_addressform').serialize();
+	  	 	var addid = $('#add_id').val();
+	  	 	console.log(formdata);
+	  	 	mui.ajax('/tools/submit_ajax.ashx?action=user_address_edit&id='+addid,{
+	  	 		type:'post',
+	  	 		datatype:'string',
+	  	 		data:formdata,
+	  	 		success:function(data){
+	  	 			data = JSON.parse(data);
+	  	 			if(data.status ==1){
+	  	 				mui.toast(data.msg);
+	  	 				setTimeout(function(){
+	  	 					window.location.href = 'myaddress.aspx';
+	  	 				},2000)
+	  	 			}
+	  	 		}
+	  	 		
+	  	 	});
+	  	 });
+	  	 //切换验证码
+function ToggleCode(obj, codeurl) {
+    $(obj).children("img").eq(0).attr("src", codeurl + "?time=" + Math.random());
+	return false;
+}
+	  </script>
+	</body>
+</html>

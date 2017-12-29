@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title>排行榜</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<style>
+			.list_title .ph_left{
+				width:30% ;
+			}
+			.list_title .ph_center{
+				width: 30%;
+			}
+			.list_title .ph_right{
+				width: 20%;
+			}
+			.list_title .ph_right1{
+				width: 20%;
+				float: left;
+				line-height: 30px;
+				text-align: center;
+			}
+			
+			.list_box .ph_left{
+				width: 30%;
+				
+			}
+			.list_box .ph_center{
+				width: 30%;
+			}
+			.list_box .ph_right{
+				width: 20%;
+			}
+			.list_box .ph_right1{
+				width: 20%;
+				float: left;
+				text-align: center;
+				line-height: 45px;
+			}
+			.list_box .list_smallbox  li{
+				padding: 0 5px;
+				height: auto;
+				border-bottom: 1px solid #e5e5e5;
+				font-size: 12px;
+			}
+			.ph_list .list_box .ph_left{
+				height: auto;
+				line-height: 14px;
+				margin-top: 10px;
+			}
+			.mui-bar-tab .mui-tab-item.mui-active {
+    color: #902626;
+}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content paihang">
+			
+				<!--<div class="ph_title" id="ph_title">
+					<span class="active">猜奇偶</span>
+					<span>猜红包</span>
+				</div>-->
+				<div class="ph_list" style="margin-top: 25px;">
+					<div class="list_title mui-clearfix">
+						<span class="ph_left">开奖时间</span>
+						<span class="ph_center">开奖期号</span>
+						<span class="ph_right">开奖号码</span>
+						<span class="ph_right1">鸡藕</span>
+					</div>
+					<div class="list_box">
+						<div class="mui-scroll-wrapper" id="phbang_list" >
+							<div class="mui-scroll">
+								<ul class="list_smallbox" style="display: block;" id="jiou_ul">
+									<li class="mui-clearfix">
+										<!--<p class="mui-clearfix">
+											<span class="ph_left">2017-08-08 18:05:06</span>
+											<span class="ph_center">2017455474</span>
+											<span class="ph_right">48541</span>
+											<span class="ph_right1">奇</span>
+										</p>-->
+									</li>
+									
+									
+								</ul>
+								<!--
+                                	猜红包
+                                -->
+								<!--<ul class="list_smallbox">
+									<li class="mui-clearfix">
+										<div class="ph_left" >
+											1
+										</div>
+										<div class="ph_center" >
+											<img src="<%templateskin%>/images/ph_tx.png">
+											
+											<i>蜜蜂不采蜜</i>
+										</div>
+										<div class="ph_right">
+											300
+										</div>
+									</li>
+								
+								
+								
+								
+									
+								
+								</ul>-->
+							</div>
+						</div>
+					</div>
+				</div>			
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a href="index.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item mui-active">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <!--<a href="shop_cart.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>-->
+		    <a href="usercenter.aspx" class="mui-tab-item" id="my_usercenter">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">个人中心</span>
+		    </a>
+		</nav>
+	
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script> 
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script>
+		mui.init();
+		
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		
+		
+		(function($){
+			console.log(1);
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		        
+		    });
+    
+		})(mui);
+	
+		
+		//切换
+//		var ph_title = document.getElementById('ph_title');
+//		var span = ph_title.getElementsByTagName('span');
+//		var box = document.getElementsByClassName('list_smallbox');
+//		for(var i = 0; i<span.length;i++){
+//			span[i].index = i;
+//			span[i].onclick = function(){
+//				for(var j = 0; j<box.length;j++){
+//					span[j].className='';
+//					box[j].style.display = 'none';
+//					
+//				}
+//				span[this.index].className ="active";
+//				box[this.index].style.display = 'block';
+//			}
+//		}
+		
+		function loadjiou(page){
+			
+			$.ajax({
+				type:"get",
+				url:"/tools/submit_ajax.ashx?action=order_orders_auction",
+				async:true,
+				data:{page:page},
+				datatype:'string',
+				success:function(data){
+					data = JSON.parse(data);
+					if(data.status ==1){
+						//alert(2);
+						var html ='';
+						for(var i = 0;i<data.Rows.length;i++){
+							var jieguo = '';
+							
+							if(data.Rows[i].quiz_result == '1'){
+							    jieguo = '鸡'
+							}else{
+							    jieguo = '藕'
+							}
+							html += '<li class="mui-clearfix"><p class="mui-clearfix"><span class="ph_left">'+ jsonDateFormat(data.Rows[i].quiz_date)+'</span><span class="ph_center">'+data.Rows[i].no+'</span><span class="ph_right">'+data.Rows[i].create_user+'</span>';
+							if(data.Rows[i].quiz_result == '1'){
+								html+='<span class="ph_right1" style="color:blue">'+jieguo+'</span></p></li>';
+							}else{
+								html+='<span class="ph_right1" style="color:#f00">'+jieguo+'</span></p></li>';
+							}
+							
+						}
+						$('#jiou_ul').append(html);
+					}else{
+						var html ='';
+						html += '<li style="text-align:center">'+data.msg+'</li>';
+						$('#jiou_ul').append(html);
+					}
+				}
+			});
+		}
+		
+		loadjiou(1);
+//		//
+//			mui.init({
+//			 	pullRefresh : {
+//			        container:"#phbang_list",
+//			        up : {
+//			            height:150,
+//			            auto:false,
+//			            contentrefresh : "正在加载...",
+//			            contentnomore:'没有更多了',
+//			            callback :function() {
+//			                var self = this; // 这里的this == mui('#refreshContainer').pullRefresh()
+//			                // 加载更多的内容
+//			                loadMore(this);
+//			            }
+//			        },
+////			        down:{
+////			        	contentrefresh : "正在加载...",
+////			        	callback:function(){
+////			        		 var self = this; // 这里的this == mui('#refreshContainer').pullRefresh()
+////			                // 加载更多的内容
+////			                loadMore(this);
+////			        	}
+////			        }
+//			     
+//			    }
+//			});
+//			var loadMore = function(pullRefresh) {
+//			    // 加载更多的内容到列表中
+//			    // TODO
+//			    // 如果没有更多数据了，则关闭上拉加载
+//			    //发起ajax请求，获取json数据，并将它渲染到页面上
+//			  
+//			  	setTimeout(function(){
+//			  		console.log("第二次加载");
+//			  		//loadjiou(1);
+//			  	},1500)
+//			  	console.log(1);			   
+//			};
+//			
+				function jsonDateFormat(jsonDate) { //json时间格式转换
+			var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+			var month = date.getMonth() + 1 < 10 ? +(date.getMonth() + 1) : date.getMonth() + 1;
+			var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var milliseconds = date.getMilliseconds();
+			return date.getFullYear() + "-" + getzf(month) + "-" + day + " " + getzf(hours) + ":" + getzf(minutes) + ":" + getzf(seconds) /* + "." + milliseconds*/ ;
+		};
+		function getzf(num) { //补0操作
+			if(parseInt(num) < 10) {
+				num = '0' + num;
+			}
+			return num;
+		};
+	</script>
+</html>

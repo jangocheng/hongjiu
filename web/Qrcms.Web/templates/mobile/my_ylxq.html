@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet"  href="<%templateskin%>/css/base.css">
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css">
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.dtpicker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.picker.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.poppicker.css" />
+		<title>我的业绩</title>
+		<style>
+			.my_yeji{
+				
+			}
+			
+			.my_yeji ul li p{
+				height: 25px;
+				line-height: 25px;
+				margin-bottom: 0;
+				color: #333;
+			}
+			.my_yeji ul li p span:nth-of-type(n){
+				float: left;
+				width: 60%;
+				height: 25px;
+				line-height: 25px;
+			}
+			.my_yeji ul li p span:nth-of-type(2n){
+				float: left;
+				width: 40%;
+				height: 25px;
+				line-height: 25px;
+			}
+			
+			.mui-table-view-cell{
+				padding: 0;
+			}
+			.my_yeji ul li{
+				height: 50px;
+				padding-left: 12px;
+			}
+			.yj{
+				height: 40px;
+				position: relative;
+			}
+			.yj:after{
+				position: absolute;
+				width: 100%;
+				height: 1px;
+				bottom: 0;
+				left: 12px;
+				content: '';
+				background: #eee;
+			}
+			.yj_left,.yj_center,.yj_right,.yj_bleft{
+				float: left;
+				
+				text-align: center;
+				line-height:40px ;
+			}
+			.yj_bleft{
+				width:40%;
+			}
+			.yj_left{
+				width:20%;
+			}
+			.yj_center{
+				width:20%;
+			}
+			.yj_right{
+				width:20%;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content my_yeji">
+			<div class="mui-scroll-wrapper" id="yj_wrapper">
+				<div class="mui-scroll" style="padding-top: 20px;">
+				
+					
+					<p class="yj mui-clearfix">
+						<span class="yj_bleft">订单号</span>
+						<span class="yj_left">会员名</span>
+						<span class="yj_center">业绩</span>
+						<!--<span class="yj_right">服务费</span>-->
+					</p>
+					<ul class="mui-table-view" id="yeji_wrap">
+						<!--<p class="yj mui-clearfix">
+							<span class="yj_left">xiaomao</span>
+							<span class="yj_center">5000</span>
+							<span class="yj_right">6000</span>
+						</p>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js" ></script>
+	<script src="<%templateskin%>/js/mui.min.js" ></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script src="<%templateskin%>/js/mui.dtpicker.js"></script>
+	<script src="<%templateskin%>/js/mui.picker.js"></script>
+	<script src="<%templateskin%>/js/mui.poppicker.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script type="text/javascript" src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+		<script id="tbody_template" type="text/html">
+			 {{# for(var i = 0, len = d.Rows.length; i < len; i++){ }}
+					<p class="yj mui-clearfix">
+							<span class="yj_bleft">{{d.Rows[i].order_no}}</span>
+							<span class="yj_left">{{d.Rows[i].user_name}}</span>
+							<span class="yj_center">{{d.Rows[i].performance}}</span>
+							<!--<span class="yj_right">{{d.Rows[i].cover_charge}}</span>-->
+					</p>
+			 {{# } }}
+			 
+            {{# if(d.count==0){ }}
+              <p class="yj" style="text-align: center;line-height: 40px;">
+              	暂无数据
+              </p>
+             {{# } }}
+        </script>
+	<script>
+		mui.init();
+		
+			function LoadTPL(tplid,viewid,data)
+			{
+			    var tpl = document.getElementById(tplid).innerHTML;
+			   
+			    var render = laytpl(tpl).render(data);
+			  $("#"+viewid).append(render);
+			   
+			 
+			     // $('#'+viewid).append(render);
+			  
+			}
+		
+			var kstime = getQueryString('starttime');
+			var jstime = getQueryString('endtime');
+			var vip = getQueryString('user_name');
+		
+		function loadsj(){
+	mui.ajax('/tools/submit_ajax.ashx?action=orders_yjfwf_xq',
+{
+				datatype:'json',
+				type:'get',
+				data:{
+					starttime:kstime,
+					endtime:jstime,
+					user_name:vip
+				},
+				success:function(data){
+					//var num =Math.ceil(data.count /10);
+					//console.log(data.Rows.length);
+					// data = JSON.parse(data);
+					data = JSON.parse(data);
+					if(data.status ==1){
+						
+					
+							
+							
+								console.log(2)
+								LoadTPL('tbody_template','yeji_wrap',data);	
+								
+							
+						
+							
+					}else{
+						var html = '';
+						html +='<p class="yj" style="text-align:center;line-height:40px">'+data.msg+'</p>';
+						$('#yeji_wrap').append(html);
+					}
+				},
+				error:function(){
+					mui.toast('失败');
+				}
+			});
+		}
+		
+		loadsj();
+		//var page = 1;
+		(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+	</script>
+
+</html>

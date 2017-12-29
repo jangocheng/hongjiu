@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+	
+		<link href="<%templateskin%>/css/mui.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<title>充值</title>
+		<style>
+			.mui-toast-container{
+				bottom: 50%;
+			}
+		</style>
+	</head>
+	<body>
+        <%if(action=="confirm")%>
+        <form id="pay_form" name="pay_form" method="get" action="{config.webpath}api/payment/{payModel.api_path}/index.aspx" target="_blank">
+            <input id="pay_order_no" name="pay_order_no" type="hidden" value="{order_no}" />
+            <input id="pay_order_amount" name="pay_order_amount" type="hidden" value="{order_amount}" />
+            <input id="pay_user_name" name="pay_user_name" type="hidden" value="{userModel.user_name}" />
+            <dd class="wrap-box">
+                <dl>
+                    <dt>支付金额</dt>
+                    <dd>￥{order_amount}</dd>
+                </dl>
+                <dl>
+                    <dt>支付方式</dt>
+
+                    <dd>
+                        {payModel.title}
+                    </dd>
+
+                </dl>
+                <input id="pay_subject" name="pay_subject" type="hidden" value="购买商品" />
+
+                <div style="padding:0 0 15px 0;">
+                    <input id="btnSubmit" name="btnSubmit" type="submit" value="确认付款" class="btn red full" />
+                </div>
+        </form>
+
+        <%/if%>
+
+        <%if(action=="succeed")%>
+        <!--支付成功-->
+        <div class="wrap-box">
+            <h2>支付成功</h2>
+            <div class="tip">
+                <span class="icon check"></span>
+                <p>恭喜您，您的支付已经成功！</p>
+                <p>您可以点击这里进入<a name="<%linkurl(" usercenter","index")%>" data-ignore="true">会员中心</a>查看订单状态！</p>
+                <p>如有其它问题，请立即与我们客服人员联系。</p>
+            </div>
+        </div>
+        <!--/支付成功-->
+        <%/if%>
+
+        <%if(action=="error")%>
+        <!--支付出错-->
+        <div class="wrap-box">
+            <h2>支付失败</h2>
+            <div class="tip">
+                <span class="icon close"></span>
+                <p>支付过程中发生意处错误！</p>
+                <p>您可以点击这里进入<a name="<%linkurl(" usercenter","index")%>" data-ignore="true">会员中心</a>查看订单状态！</p>
+                <p>如您确实已经支付，请与我们客服人员联系。</p>
+            </div>
+        </div>
+        <!--/支付出错-->
+        <%/if%>
+
+        <%if(action=="login")%>
+        <!--用户未登录-->
+        <div class="wrap-box">
+            <h2>会员登录</h2>
+            <div class="tip">
+                <span class="icon info"></span>
+                <p>您尚未登录或已经超时啦！</p>
+                <p>已是会员用户，请<a name="<%linkurl(" login")%>" data-ignore="true">点击这里登录</a>。</p>
+                <p>尚未注册会员，请<a name="<%linkurl(" register")%>" data-ignore="true">点击这里注册</a>。</p>
+            </div>
+        </div>
+        <!--/用户未登录-->
+        <%/if%>
+
+        <%if(action=="recharge")%>
+        <!--用户余额不足-->
+        <div class="wrap-box">
+            <h2>余额不足</h2>
+            <div class="tip">
+                <span class="icon warning"></span>
+                <p>对不起，您的余额不足本次支付！</p>
+                <p>如余额不足，请<a class="close-popup" name="<%linkurl(" userwallet")%>" data-ignore="true">点击这里充值</a>后进行支付！</p>
+                <p>如果有任何问题，请与我们客服取得联系。</p>
+            </div>
+        </div>
+        <!--/用户余额不足-->
+        <%/if%>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		//MUI框架初始化
+		mui.init();
+		
+	
+		
+		
+</script>
+</html>

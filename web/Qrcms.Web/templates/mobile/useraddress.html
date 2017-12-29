@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+	</head>
+	<body>
+		      <div class="mui-page" id="address_page">
+        	<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>
+					
+				</button>
+				<h1 class=" mui-title colorfff">收货地址</h1>	
+			</div>
+			<div class="mui-page-content delivery-address mtp">
+				<div class="mui-scroll-wrapper" id="sh_address_wrap">
+					<div class="mui-scroll">
+						<div>
+						   <ul id="address_list" class="address_list">
+						   	   <%set DataTable list=get_user_addr_book_list(15, page, "user_id="+userModel.id, out totalcount)%><!--取得一个DataTable-->
+          <%set string pagelist=get_page_link(15, page, totalcount, "useraddress", "__id__")%> <!--取得分页页码列表-->
+          <%foreach(DataRow dr in list.Rows)%>
+							   <li>
+							   		
+							   			 <div class="mui-card">
+								    	<p>{dr[accept_name]} <span>{dr[mobile]}</span></p>
+								    	<p> {dr[area]} {dr[address]}</p>
+								    	<div>
+								    		<div class="mui-input-row mui-checkbox mui-left">
+												<label>设为默认</label>
+												<input name="checkbox1" address-data-no="124314" value="Item 1" type="checkbox">
+											</div> 
+											<div>
+												<a href="">编辑</a>
+												<a href="" address-data-no="1">删除</a>
+											</div>
+								    	</div>
+							    	</div>
+							   		
+							   	</li>
+							   	   <%/foreach%>
+						   </ul>
+			  
+						</div>
+						<button id="add_addressBtn" type="button" class="mui-btn mui-btn-blue mui-btn-block">添加新地址</button>
+					</div>
+				</div>
+			</div>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<title>品牌专题</title>
+		<style>
+			.page-list>span:first-child{
+	display: none;
+}
+.page-list{
+	text-align: center;
+	margin: 20px 0;
+	margin-left: 15%;
+}
+.page-list a,.page-list span {
+    display: block;
+    float: left;
+    margin: 2px 0 0 -1px;
+    padding: 4px 12px;
+   /* line-height: 30px;*/
+    height: 30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+}
+.page-list .current{
+	    color: #fff;
+    background: #BF0A0A;
+    border-color: #BF0A0A;
+}
+.brand_list .brand_buy  a{
+	width: 60px;
+}
+	.brand_zt .mui-scroll-wrapper {
+		padding-bottom: 50px;
+	}
+</style>
+		
+	</head>
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">  
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorhei" id="goto_home"></a>  
+	        <h1 class="mui-title mytitle">品牌专题</h1>  
+	    </header>  -->
+		<div class="mui-content brand_zt">
+			<div class="mui-scroll-wrapper" id="brand_wrap">
+				<div class="mui-scroll">
+					<ul class="brand_list mui-clearfix" id="brand_list">
+						<%set DataTable iud=get_article_list(channel, category_id,10, page, "status=0", out totalcount, out pagelist, "brand_zt", category_id, "__id__")%>
+<%loop ths iud%>
+						<li>
+							<a href="/mobile/goods_show.aspx?id={ths[id]}">
+								
+								<img src="{ths[img_url]}">
+								<p>{ths[title]}</p>
+								<p>{ths[sub_title]}</p>
+								<p>{ths[xiao_title]}</p>
+							</a>
+							<div class="brand_buy">
+									<p>￥{ths[sell_price]}</p>
+									<a href="/mobile/goods_show.aspx?id={ths[id]}">立即购买</a>
+							</div>
+						</li>
+						 <%/loop%>
+					
+					</ul>
+					<div class="page-list mui-clearfix">{pagelist}</div>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a href="index.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <!--<a href="shop_cart.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>-->
+		    <a href="usercenter.aspx" class="mui-tab-item" id="my_usercenter">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">个人中心</span>
+		    </a>
+		</nav>
+	
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script>
+		//mui初始化
+		mui.init();
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		
+		//页面滚动
+		(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+		
+		//返回首页的跳转
+//		mui('body').on('tap','#goto_home',function(){
+//			window.location.href ="index.html";
+//		})
+/*
+		//进入商品详情页的跳转
+		mui('body').on('tap','.enter_xq',function(){
+			console.log('进入去买东西咯');
+			location.href = this.href;
+		})
+		
+		mui('body').on('tap','#brand_list li a',function(){
+			location.href = this.href;
+		})
+		
+		
+		mui('body').on('tap','.page-list',function(){
+			location.href = this.href;
+		})
+*/
+		//上拉加载
+//			mui.init({
+//			 	pullRefresh : {
+//			        container:"#brand_wrap",
+//			        up : {
+//			            height:150,
+//			            auto:false,
+//			            contentrefresh : "正在加载...",
+//			            contentnomore:'没有更多了',
+//			            callback :function() {
+//			                var self = this; // 这里的this == mui('#refreshContainer').pullRefresh()
+//			                // 加载更多的内容
+//			                loadMore(this);
+//			            }
+//			        },
+////			        down:{
+////			        	style:'circle',
+////			        	callback:function(){
+////			        		 var self = this; // 这里的this == mui('#refreshContainer').pullRefresh()
+////			                // 加载更多的内容
+////			                loadMore(this);
+////			        	}
+////			        }
+//			     
+//			    }
+//			});
+//			var loadMore = function(pullRefresh) {
+//			    // 加载更多的内容到列表中
+//			    // 
+//			    // 如果没有更多数据了，则关闭上拉加载
+//			    //发起ajax请求，获取json数据，并将它渲染到页面上
+//			  
+//			  	setTimeout(function(){
+//			  		console.log("第二次加载");
+//			  		//loadsj(page);
+//			  	},1500)
+//			  	console.log(1);			   
+//			};		
+	</script>
+</html>

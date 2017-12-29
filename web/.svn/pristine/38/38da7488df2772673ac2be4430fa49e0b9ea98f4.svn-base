@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>注册账号</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-toast-container{
+				bottom: 15%;
+			}
+			.register .mui-input-row > div, .wj_password .mui-input-row > div{
+				display: inline-block;
+    padding:0 10px ;
+    height:30px;
+   
+    border: 1px solid #7D0000;
+    color: #fff;
+    background: #7D0000;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    float: right;
+    margin-top: 11px;
+    margin-right: 12px;
+			}
+		</style>
+	</head>
+
+	<body style="min-height: 100%;background: #F2F2F2;">
+		<div class="mui-content register">
+		    <div class="mui-input-group">
+		    	<form id="register_form">
+
+                    <input type="hidden" name="openid" id="openid" value="<%=Qrcms.Common.DTRequest.GetString("openid")%>" />
+		    		
+			        <div class="mui-input-row">
+			            <input type="tel" name="txtMobile" id="txtPhone" datatype="phone" errormsg="请输入正确的手机号！" class="mui-input-clear" placeholder="请输入手机号码">
+			            <div id="getCode">获取验证码</div>
+			        </div>
+			        <div class="mui-input-row">
+			            <input type="password" name="txtCode" id="txtCode" class="mui-input-clear" datatype="notnull" errormsg="请输入验证码！" placeholder="请输入手机验证码">
+			        </div>
+			        <div class="mui-input-row">
+			            <input type="password" name="txtPassword" id="txtPassword" datatype="notnull" errormsg="请输入密码！" class="mui-input-clear" placeholder="请设置登陆密码">
+			        </div>
+			         <div class="mui-input-row">
+			            <input type="password" name="QRcodestate" id="QRcodestate"  errormsg="请输入邀请码！" class="mui-input-clear" placeholder="请输入邀请码">
+			        </div>
+			        <div class="mui-input-row">
+			         
+			            <input type="hidden" name="txtUserName" value="test" id="txtUserName"/>
+			            <input type="hidden" name="txtPassword1" id="txtPassword1"/>
+			        </div>
+		        </form>
+		    </div>
+		    <button id="register_submit" type="button" class="mui-btn mui-btn-blue mui-btn-block regbtn">立即注册</button>
+		    <p>注册即同意<a href="">《用户协议》</a></p>
+		</div>
+		
+	
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		mui.init();
+		/*向手机发送验证码*/
+		mui('body').on('tap','#getCode',function(){
+			sendSMS('#getCode','#txtPhone','/tools/submit_ajax.ashx?action=user_verify_smscode&site=mobile');
+		});
+		
+		
+		/*提交用户注册的相关数据*/
+		mui('body').on('tap','#register_submit',function(){
+			var password_val=$("#txtPassword").val();
+		
+			$("#txtPassword1").val(password_val);
+			var formdata = serialize(document.getElementById('register_form'));
+			console.log(formdata);
+			if(getValid('register_form')){
+				
+				mui.ajax("/tools/submit_ajax.ashx?action=user_register&site=mobile",{
+					data:{
+						"txtUserName":document.getElementById('txtPhone').value,
+						"txtPassword1":document.getElementById('txtPassword1').value,
+						'txtMobile':document.getElementById('txtPhone').value,
+						'txtCode':document.getElementById('txtCode').value,
+						'txtPassword': document.getElementById('txtPassword').value,
+						'QRcodestate':document.getElementById('QRcodestate').value,
+						'openid':document.getElementById('openid').value
+					},
+					dataType:'json',
+					type:"post",
+					async:false,
+					success:function(data){
+						if(data.status == "1"){
+								mui.toast(data.msg)
+								
+								setTimeout(function(){
+									window.location.href = data.url;
+								},1000)
+							}else{
+								mui.toast(data.msg)
+							}
+					}
+					
+				})
+			}
+		})
+		/**/
+	</script>
+</html>

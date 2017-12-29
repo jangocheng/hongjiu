@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<title>收货地址</title>
+		<style>
+			#add_addressBtn{
+				position: fixed;
+				bottom: 0;
+				z-index: 99;
+			}
+		</style>
+	</head>
+	<body>
+		     
+        	<!--<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left colorfff">
+					<i class="mui-icon mui-icon-left-nav colorfff" ></i>
+					
+				</button>
+				<h1 class=" mui-title colorfff">收货地址</h1>	
+			</div>-->
+			<div class="mui-content delivery-address mtp">
+				<div class="mui-scroll-wrapper" id="sh_address_wrap">
+					<div class="mui-scroll">
+						<div>
+						   <ul id="address_list" class="address_list" style="background: #f2f2f2;">
+						   	   <%set DataTable list=get_user_addr_book_list(15, page, "user_id="+userModel.id, out totalcount)%><!--取得一个DataTable-->
+          <%set string pagelist=get_page_link(15, page, totalcount, "useraddress", "__id__")%> <!--取得分页页码列表-->
+          	<%foreach(DataRow dr in list.Rows)%>
+							   <li style="margin-top: 10px;">
+							   		
+							   			 <div class="mui-card">
+								    	<p>{dr[accept_name]} <span>{dr[mobile]}</span></p>
+								    	<p> {dr[area]} {dr[address]}</p>
+								    	<div>
+								    		<div class="mui-input-row mui-checkbox mui-left">
+								    			 <%if({dr[is_default]}=="0")%>
+												<a onclick="swmr()" class="moren"  style="margin-left: 30px;color: #333;font-size: 12px;" data-id="{dr[id]}">设为默认</a><%else%>
+                <span style="margin-left: 30px;font-size: 12px;color: #7D0000;">已默认</span>
+                <%/if%> 
+												<!--<input name="checkbox1" address-data-no="124314" value="Item 1" type="checkbox" class="check">-->
+											</div> 
+											<div>
+												<a href="edit_add.aspx?action=edit&id={dr[id]}" class="add_edit">编辑</a>
+												<a href="javascript:void(0)" class="del_add" data-id="{dr[id]}">删除</a>
+											</div>
+								    	</div>
+							    	</div>
+							   		
+							   	</li>
+							   	   <%/foreach%>
+						   </ul>
+			  
+						</div>
+						<div style='height: 50px;'></div>
+						
+					</div>
+					
+				</div>
+			</div>
+			<button id="add_addressBtn" type="button" class="mui-btn mui-btn-blue mui-btn-block">添加新地址</button>
+	   <script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+       <script src="<%templateskin%>/js/mui.min.js"></script>
+       <script src="<%templateskin%>/js/common.js"></script>	
+
+       <script>
+       	mui.init();
+       		(function($){
+			    $(".mui-scroll-wrapper").scroll({
+			        //bounce: false,//滚动条是否有弹力默认是true
+			        //indicators: false, //是否显示滚动条,默认是true
+			    });
+    
+			})(mui);
+			
+			mui('body').on('tap','.add_edit',function(){
+				location.href = this.href;
+			})
+			
+			//删除地址
+			mui('body').on('tap','.del_add',function(){
+				var addid = $('.del_add').attr('data-id');
+				console.log(addid);
+				mui.ajax('{config.webpath}tools/submit_ajax.ashx?action=user_address_delete',{
+					datatype:'string',
+					type:'post',
+					data:{
+						'checkId':addid
+					},
+					success:function(data){
+						 data = JSON.parse(data);
+						console.log(data);
+						if(data.status ==1){
+							
+							mui.toast(data.msg);
+							setTimeout(function(){
+								location.reload();
+							},2000)
+						}
+					}
+				})
+			})
+
+			mui('body').on('tap','#add_addressBtn',function(){
+				location.href = 'add_address.aspx?';
+			});
+			mui('body').on('tap','input[type="checkbox"]',function(){
+			
+				$("input[type='checkbox']").removeAttr('checked');
+				$(this).attr('checked')
+			});
+			
+			//设为默认地址
+		function swmr(){
+			$("input[type='checkbox']").removeAttr('checked');
+			var check = $('.check').attr('checked');
+			var id = $('.moren').attr('data-id');
+			mui.ajax('/tools/submit_ajax.ashx?action=user_address_default&id='+id,{
+					type:'post',
+				datatype:'string',
+			
+				success:function(data){
+					data = JSON.parse(data);
+					if(data.status ==1){
+						mui.toast(data.msg);
+						check = true;
+						location.reload();
+						
+					}
+				}
+			})
+		};
+		
+       </script>
+	</body>
+</html>

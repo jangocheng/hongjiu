@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<title>确认订单</title>
+	</head>
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable confirm_order">
+			<aside id="offCanvasSide" class="mui-off-canvas-right">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+	
+					</div>
+				</div>
+			</aside>
+			<div class="mui-inner-wrap">
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+					    <div class="mui-card mui-navigate-right sel-address">
+					    	<p>吴亚武<span>12545258785</span></p>
+					    	<p>浙江省杭州市江干区区政府大楼区长办公室</p>
+					    	<input type="hidden" name="index_address_id"/>
+					    </div>
+					    
+					    <!--订单项目列表开始-->
+					    <div class="mui-card goods">
+		    				
+		    				<input type="hidden" name="branch_no"  />
+		    	
+					    	<div class="goods-list">
+					    		<div style="background: #fff url(images/goods-img1.jpg) no-repeat 12px 10px/100px 100px;">
+						    		<p>买一送二红酒买一送二红酒买红酒买</p>
+						    		<p>￥299<span>x1</span></p>
+						    		<div class="mui-numbox" data-numbox-step="1" data-numbox-min="0" data-numbox-max="100">
+										<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>	
+										<input type="text" value="1" class="mui-numbox-input" />
+										<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+									</div>
+						    	</div>
+					    	</div>
+		    
+					    	<div class="mui-input-group">
+					    	    <div class="mui-input-row">
+					    	        <label>配送方式</label>
+					    	      
+					    	        <input type="text" readonly value="包邮 ">
+					    			<input type="hidden" name="express_id"  />
+					    			
+					    	    </div>
+					    	    <!--<div class="mui-input-row">
+					    	        <label>买家留言</label>
+				    	            <input type="text" name="message" class="mui-input-clear" placeholder="填写留言给卖家">
+					    	    </div>
+					    	    <div class="mui-input-row">
+					    	        <p>共1件商品  小计：<span>￥999999</span></p>
+					    	    </div>-->
+					    	</div>
+					    </div>
+					    <!--
+                        		订单项目列表结束
+                        -->
+					</div>
+					<div class="confirm-btn-box">
+						<p>实付款：<span id="totalAmount">￥2999</span></p>
+						<button type="button" class="mui-btn mui-btn-blue ">确认提交</button>
+					</div>
+				</div>
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+</html>

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+	
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />	
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<title>兑换专区</title>
+		<style>
+			.page-list>span:first-child{
+<<<<<<< .mine
+				display: none;
+			}
+			.page-list{
+				text-align: center;
+				margin: 20px 0;
+				margin-left: 15%;
+			}
+			.page-list a,.page-list span {
+			    display: block;
+			    float: left;
+			    margin: 2px 0 0 -1px;
+			    padding: 4px 12px;			    
+			    height: 30px;
+			    border: 1px solid #e1e1e1;
+			    background: #fff;
+			    color: #333;
+			    text-decoration: none;
+			    font-size: 14px;
+			}
+			.page-list .current{
+				color: #fff;
+			    background: #BF0A0A;
+			    border-color: #BF0A0A;
+			}
+		</style>
+
+	display: none;
+}
+.page-list{
+	text-align: center;
+	margin: 20px 0;
+	margin-left: 15%;
+}
+.page-list a,.page-list span {
+    display: block;
+    float: left;
+    margin: 2px 0 0 -1px;
+    padding: 4px 12px;
+    
+    height: 30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+.page-list .current{
+	    color: #fff;
+    background: #BF0A0A;
+    border-color: #BF0A0A;
+}
+</style>
+=======
+	display: none;
+}
+.page-list{
+	text-align: center;
+	margin: 20px 0;
+	margin-left: 15%;
+}
+.page-list a,.page-list span {
+    display: block;
+    float: left;
+    margin: 2px 0 0 -1px;
+    padding: 4px 12px;
+    
+    height: 30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+.page-list .current{
+	    color: #fff;
+    background: #BF0A0A;
+    border-color: #BF0A0A;
+}
+.duihuan_list ul li:nth-of-type(2n+1) {
+    
+    border-right: 4px solid #f8ae20;
+   }
+.duihuan_list ul li:nth-of-type(2n) {
+    
+    border-left: none;
+   }
+</style>
+>>>>>>> .r7407
+		
+	</head>
+	<body>
+		<div class="mui-content duihuan">
+			<div class="duihuan_head">
+					<img src="<%templateskin%>/images/jf1.png">
+			</div>
+			<div class="duihuan_list">	
+				
+				<div class="mui-scroll-wrapper" id="duihuan_pro_wrap">
+					<div class="mui-scroll">
+						<ul class="clearfix" id="duihuan_proul">
+						<%set DataTable iud=get_article_list(channel, 66,6, page, "status=0 and point < 0 ", out totalcount, out pagelist, "duihuan_zq", category_id, "__id__")%>
+<%loop ths iud%>
+							<li>
+								<a href="duihuan_show.aspx?id={ths[id]}">
+									<p>{ths[title]}</p>
+									<p><span class="point">{ths[point]}</span>积分</p>
+									<img src="{ths[img_url]}">
+								</a>
+							</li>
+							
+						 <%/loop%>
+						</ul>
+							<div class="page-list mui-clearfix">{pagelist}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/layer/layer.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/layer/laypage/laypage.js"></script>
+	<script>
+		//MUI框架初始化
+		mui.init();
+		
+		function quchu(){
+			var point = document.getElementsByClassName('point');
+			for(var i = 0; i<point.length;i++){
+				//console.log(point.length);
+				var str = point[i].innerText;
+				console.log(str);
+				var str2 = str.substr(1,str.length);
+				console.log(str2);
+				point[i].innerText = str2;
+			}
+		}
+		
+		quchu();
+		
+		
+	
+		
+		//页面滚动
+		(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+		
+		//页面跳转
+//		mui('body').on('tap','#duihuan_proul li a',function(){
+//			
+//			window.location.href = this.href;
+//		})
+		
+			
+			
+	</script>
+</html>

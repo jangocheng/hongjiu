@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<title>实名认证</title>
+		<style type="text/css">
+			.mui-toast-container{
+				bottom:30% !important;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content realname_rz">
+			 <div class="mui-input-group">
+		       <form id="rz_form">
+		       		<div class="mui-input-row">
+		         		<span>用户名</span><input type="text"  value='{userModel.user_name}'>
+		       		</div>
+			        <div class="mui-input-row">
+			           <span>真实姓名</span><input class="mui-input-clear" type="text" placeholder="请输入真实姓名" id="realName" name="real_name"  datatype="name"  errormsg="请输入真实姓名"/>
+			        </div>
+			        <div class="mui-input-row">
+			           <span>手机号码</span><input type="tel" class="mui-input-clear"  placeholder="请输入手机号码" name="txtMobile" id="txtPhone" datatype="phone" errormsg="请输入正确的手机号码"/>
+			        </div>
+			        <div class="mui-input-row rz_yzm">
+			           <span>验证码</span><input type="tel" class="mui-input-clear"  placeholder="请输入验证码" id="yzcode" name="yzcode"/><div class="get_yzm" id="getCode" style="line-height: 30px;">获取验证码</div>
+			        </div>
+			        <div class="mui-input-row">
+			        	<span>身份证号码</span><input type="tel" class="mui-input-clear"  placeholder="请输入身份证号码" id="idcard" name="idcard" <!--datatype="sfz" errormsg="请输入正确的身份证号码"-->
+			        </div>
+		       </form>
+		    </div>
+		    <p class="rz_notice">注：请保证您输入的信息与微信实名绑定的姓名、身份证号信息一 致，否则将有可能会影响您的退货申请</p>
+		    <button class="mui-btn mui-btn-block colorfff" id="rz_submit">提交审核</button>
+		</div>
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		
+		//MUI框架初始化
+		mui.init();
+		
+		//向用户手机发送验证码
+		mui('body').on('tap','#getCode',function(){
+			
+			sendSMS('#getCode','#txtPhone','/tools/submit_ajax.ashx?action=user_verify_smscode&site=mobile');
+		})
+		
+		//用户提交资料实名认证
+		mui('body').on('tap','#rz_submit',function(){
+			 checkid();
+			//打包用户提交认证的数据
+			//var formdata = serialize(document.getElementById('rz_form'));
+			var formdata = $('#rz_form').serialize();
+			
+			console.log(formdata);
+			if(getValid('rz_form')){
+				$.ajax({
+					type:"post",
+					url:"/tools/submit_ajax.ashx?action=user_real",
+					async:true,
+					data:formdata,
+					datatype:'string',
+success: function(data){
+	data = JSON.parse(data);	
+	if(data.status == 1){
+		mui.toast(data.msg)
+		setTimeout(function(){
+			window.location.href="usercenter.aspx"
+		},2000)
+		
+	}else{
+		mui.toast("认证失败")
+	}
+
+}
+});
+}
+})
+/*身份验证*/
+   var  arr2  =   [7,  9,  10,  5,  8,  4,  2,  1,  6,  3,  7,  9,  10,  5,  8,  4,  2];        
+var  arr3  =   [1,  0,  'X',  9,  8,  7,  6,  5,  4,  3,  2];
+
+function  checkid()  {            
+	var  t  =  document.getElementById("idcard").value;            
+	if (t.length  ==  18)  {                
+		console.log('11');                
+		var  arr  =  t.split('');                
+		var  s;                
+		var  reg  =  /^\d+$/;                
+		var  pd  =  0;                
+		for (i  =  0;  i  <  17;  i++)  {                    
+			if (reg.test(arr[i]))  {                        
+				s  =  true;                        
+				pd  =  arr[i]  *  arr2[i]  +  pd;                    
+			} 
+			else  {                        
+				s  =  false;                        
+				break;                    
+			}                
+		}                
+		if (s  =  true)  {                    
+			var  r  =  pd  %  11;                    
+			if (arr[17]  ==  arr3[r])  {
+				mui.toast("身份证号合法  尾号为："  +  arr3[r])                        
+				                    
+			} 
+			else  {     
+				mui.toast( "非合法身份证号");                   
+				         
+			}                
+		}
+
+		            
+	} 
+	else  {
+		mui.toast( "非合法身份证号");             
+		    
+	}        
+}    </script>
+</head>
+		
+	</script>
+</html>

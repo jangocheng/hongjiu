@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>分类列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="stylesheet" href="css/base.css"  />
+		<link rel="stylesheet" href="css/mui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">  
+	       	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>  
+	        <h1 class="mui-title mytitle">分类</h1>  
+	    </header>  
+		<div class="mui-content goods_fenlei">
+			<div class="mui-clearfix">
+				<div class="fenlei_menu" id="fl_menu">					
+					<ul id="left_ul">
+						<li>
+							<span class="active">为您推荐</span>
+						</li>
+						<li>
+							<span href="">男装</span>
+						</li>
+						<li>
+							<span href="">女装</span>
+						</li>
+						<li>
+							<span href="">红酒</span>
+						</li>
+						<li>
+							<span href="">白酒</span>
+						</li>
+						<li>
+							<span href="">黄酒</span>
+						</li>
+						<li>
+							<span href="">红酒</span>
+						</li>
+						<li>
+							<span href="">红酒</span>
+						</li>
+					</ul>
+				</div>
+				<div class="fl_main mui-clearfix">
+					<div class="main_xx mui-clearfix" style="display: block;">
+						
+							<div class="enter">
+								<!--<a href="">进入频道  &gt;</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="images/hj.jpg">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="images/hj.jpg">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="images/hj.jpg">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="images/hj.jpg">
+												<p>商品1</p>
+											</a>
+										</li>
+										
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>男装</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>女装</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="images/hj.jpg">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx">
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+						<div class="main_xx" >
+						
+							<div class="enter">
+								<!--<a href="">进入频道</a>-->
+							</div>
+							<div class="mui-scroll">
+								<div class="list ">
+									<h3>为您推荐</h3>
+									<ul class="clearfix">
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<img src="">
+												<p>商品1</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+			<script>
+				mui.init();
+				mui('.mui-bar-nav').on('tap','a',function(){
+					window.location.href = "index.html";
+				})
+			</script>
+	<script>
+		var menu_left = document.getElementById('left_ul');
+		var span = menu_left.getElementsByTagName('span');
+		
+		var main = document.getElementsByClassName('main_xx');
+		for(var i = 0; i<span.length;i++){
+			span[i].index = i;
+			span[i].onclick = function(){
+				
+				for(var j = 0; j<main.length; j++){
+					span[j].className = "";
+					main[j].style.display = 'none';
+				}
+				span[this.index].className = 'active';
+				main[this.index].style.display = 'block';
+			}
+		}
+	</script>
+</html>

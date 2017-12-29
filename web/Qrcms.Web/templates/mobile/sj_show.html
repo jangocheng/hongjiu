@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>升级商品详情</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/offcanvas-drag.css" />
+		<style type="text/css">
+			button:disabled,
+			.mui-btn:disabled{
+				opacity: 1;
+				background: #999;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content goods_show">
+			<!--
+            	商品banner
+            -->
+			 <div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					 <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				   
+				    <div class="mui-slider-item"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				    
+				     <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator "></div>
+				</div>
+			</div>
+			<!--<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					 <%if(model.albums!=null)%>
+          <%foreach(Qrcms.Model.article_albums modelt in model.albums)%>
+					<div class="mui-slider-item">
+						<img src="{modelt.thumb_path}"/>
+					</div>
+					    <%/foreach%>
+          <%/if%>
+				</div>
+				<div class="mui-slider-indicator">
+					 <%if(model.albums!=null)%>
+          <%foreach(Qrcms.Model.article_albums modelt in model.albums)%>
+					<div class="mui-indicator"></div>
+					   <%/foreach%>
+          <%/if%>
+				</div>
+			</div>-->
+			<div class="mui-card title">
+				<p>oppo r11</p>
+				<p>￥<b id="pro_price">30</b></p>
+				<p>
+					<span>运费：<i>包邮</i></span>
+					
+				</p>
+			</div>
+			<!--
+            	选择商品规格
+            -->
+			<!--<div class="mui-input-group goods-spec">
+			    <div class="mui-input-row">
+			        <label>请选择规格</label>
+			        <input id="menu-btn" type="text" readonly >
+			    </div>
+			   
+			</div>-->
+			<!--
+            	商家信息
+            -->
+			<!--<div class="shop_header mui-clearfix">
+            	<div>
+            		<img src="images/shop-logo1.png" alt="" />
+            	</div>
+            	<div>
+            		<p>OPPO旗舰店</p>
+            		<p>商家编号：<span id="shopno"></span></p>
+            	</div>
+			</div>-->
+			<!--
+            	商品图文详情
+            -->
+			<div class="detail">
+			    <h5><span>商品介绍</span></h5>
+			    <div>
+			    	<img src="<%templateskin%>/images/brandzt1.png" alt="" />
+			    </div>
+				<p>—— 已经到底了 ——</p>
+			</div>
+			
+		</div>
+		<div class="goods_showbtn">
+			<!--<div class="sj_price">
+					<span>数量:</span>
+					<div class="mui-numbox" data-numbox-step="1" data-numbox-min="0" data-numbox-max="100">
+									<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>	
+									<input type="text" value="1" class="mui-numbox-input" />
+									<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+								</div>
+				<input type="hidden" name="stockQuantity" id="stockQuantity" value="" />
+				</div>-->
+					
+				
+				<span type="button" class="mui-btn mui-btn-blue " style="border: 1px solid rgb(253,165,0); background: rgb(253,165,0);display: inline-block;" >账户余额<b id="count_price">300</b></span>
+				<button type="button" class="mui-btn mui-btn-blue" id="buy" >立即购买</button>
+		</div>
+		<div id="menu-wrapper" class="menu_wrapper mui-hidden">
+			<div id="menu" class="menu">
+				<ul class="mui-table-view">
+					<li>
+						<div class="mui-row">
+							<p>内存</p>
+							<input type="hidden" />
+							<span class="mui-col-sm-3 mui-col-xs-3">
+								4G
+								<input type="hidden" />
+							</span>
+						</div>
+					</li>
+					<li>
+						<div class="mui-row">
+							<p>颜色</p>
+							<input type="hidden" />
+							<span class="mui-col-sm-3 mui-col-xs-3">
+								白色
+								<input type="hidden" />
+							</span>
+							<span class="mui-col-sm-3 mui-col-xs-3">
+								黑色
+								<input type="hidden" />
+							</span>
+						</div>
+					</li>
+				</ul>
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确定</button>
+			</div>
+		</div>
+		<div id="menu-backdrop" class="menu-backdrop"></div>
+		
+		
+		<div class="games" id="games">
+			<div class="game_txt">
+				<h3>升级规则</h3>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+                        商品列表中，左边为小升级商品，右边为大升级商品，未中奖为小商品，中奖为大商品。在每个订单保存这个结果。客户可以在榜单看到结果，商品只有大商品可以提货或提现佣金，小商品只能提货。
+					</div>
+				</div>
+				<div class="game_btn mui-clearfix">
+					<a href="chaihb.aspx" id="goto_hb" style="display:none;">猜红包</a>
+					<a href="caijiou.aspx" id="goto_jo">猜奇偶</a>
+                    <a href="caidaxiao.aspx" id="goto_jo">猜大中小</a>
+                    <a href="cainiuniu.aspx" id="goto_jo">猜牛牛</a>
+					<a href="choose_add.aspx">提货</a>
+				</div>
+			</div>
+			<a class="close" id="closeBtn">
+				
+			</a>
+		</div>
+		<div class="mask" id="mask"></div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script src="<%templateskin%>/js/cart.js"></script>
+	<script src="<%templateskin%>/js/goodsshow.js"></script>
+	<script>
+		mui.init();
+		
+//			var menuWrapper = document.getElementById("menu-wrapper");
+//			var menu = document.getElementById("menu");
+//			var menuWrapperClassList = menuWrapper.classList;
+//			var backdrop = document.getElementById("menu-backdrop");
+//			backdrop.addEventListener('tap', toggleMenu);
+//			document.getElementById("menu-btn").addEventListener('tap', function(){
+//				console.log(1);
+//				mui("#menu-wrapper")[0].style.bottom = "50px";
+//				mui(".menu-backdrop")[0].style.bottom = "50px";
+//				mui("#menu-wrapper .mui-btn-block")[0].style.display = "none";
+//				mui(".goods_showbtn .mui-btn")[0].removeEventListener("tap",addCart);
+//				mui(".goods_showbtn .mui-btn")[1].removeEventListener("tap",buyNow);
+//				mui(".goods_showbtn .mui-btn")[0].addEventListener("tap",addGwc)
+//				mui(".goods_showbtn .mui-btn")[1].addEventListener("tap",buy)
+//				toggleMenu();
+//		});
+//		mui('body').on('tap','#buy',function(){
+//			window.location.href = "confirm_order.aspx";
+//		});
+
+		mui('body').on('tap','.game_btn a',function(){
+			//alert(1);
+			location.href = this.href;
+			//alert(this.href);
+		})
+		mui('body').on('tap','#closeBtn',function(){
+			$('#games,#mask').css('display','none');
+			$('body').css('overflow','auto');
+		})
+
+		mui('body').on('tap','#buy',function(){
+			
+			var proprice = document.getElementById('pro_price').innerText;
+			console.log(proprice);
+			var count = document.getElementById('count_price').innerText;
+			console.log(count);
+			if(proprice > count){
+				mui.toast('账户余额不足，请充值');
+			}else{
+				$('#games,#mask').css('display','block');
+				$('body').css('overflow','hidden');
+			}
+		})
+	</script>
+</html>

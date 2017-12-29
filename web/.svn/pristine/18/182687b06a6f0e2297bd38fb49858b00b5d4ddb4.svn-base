@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!--服务类型-->
+  <service>cj002</service>
+  <!--交易安全检验码，由数字和字母组成的32位字符串-->
+  <key>db1666cc0a094176b330179eaba4538f</key>
+  <!--平台商户编号-->
+  <merchantCode>10045025819</merchantCode>
+  <!--商户名称-->
+  <shmc>玖方钱包微信FB</shmc>
+  <!--支付结果异步通知地址-->
+  <notifyUrl>/api/payment/weixinsm/notify_url.aspx</notifyUrl>
+</Root>

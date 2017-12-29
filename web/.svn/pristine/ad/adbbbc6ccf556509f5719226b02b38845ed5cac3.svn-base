@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />		
+		<title>升级记录详情</title>
+		<style type="text/css">
+			.zhuangtai{
+				display: flex;
+				
+			}
+			.zhuangtai>li{
+				background-color: #c3c3c3;
+				color: white;
+				flex: 1;
+				width: 25%;
+				text-align: center;
+			}
+			
+			.zhuangtai .done{
+				background-color: #83bd39;
+			}
+			.hb_goods{
+				margin-top: 0;
+			}
+			.chakan{
+				background: #fff;
+				font-size: 14px;
+				font-weight:bold;
+				color:#999;
+				text-align: center;
+			}
+			
+		</style>
+	</head>
+	<body>        <%if(model.order_goods!=null)%>
+        <%foreach(Qrcms.Model.order_goods modelt in model.order_goods)%>
+		<div class="mui-content redbao_jl">
+			<!--<div class="hbjl_banner">
+				<img src="<%templateskin%>/images/hbjl.png">
+			</div>-->
+			<div class="chakan">查看订单</div>
+			<div class="hb_goods">
+				
+				<ul>
+					  
+					<li class="mui-card">
+
+						<p class="mui-clearfix">订单号:{model.order_no}<span> <%if(model.quiz_result==1)%>
+                            已中奖
+                            <%/if%>
+                            <%if(model.quiz_result==2)%>
+                            未中奖
+                            <%/if%></span></p>
+						<p class="mui-clearfix" style="color: red;">订单状态:   <%=get_order_status(model.id)%></p>
+
+						<div class="goods-list" style="overflow:hidden">
+                            <div style="height:80px; width:80px; text-align:center; float:left; padding-left:0px;">
+                                <img src="<%=get_article_img_url(modelt.article_id)%>" style="height:80px;" />
+                            </div>
+									 <div style="padding-left:0px; float:left">
+										 <p>{modelt.goods_title}</p>
+										 <input type="hidden" id="orderNo" value="{model.order_no}" />
+										
+										 <p class="price mui-clearfix">单价:￥{modelt.real_price}&nbsp;  数量:{modelt.quantity}
+										 	   <%csharp%>
+if(model.quiz_result==1 && model.status==2 && string.IsNullOrEmpty(model.accept_name))
+                                         {
+                                         <%/csharp%>
+										 	<a href="" id="sqtk">申请提款</a>
+										 <%csharp%>
+                                         }
+                                         <%/csharp%>
+                                         </p> 
+									</div>
+										    	
+								</div>
+									    	<div>
+									    		
+									    		<ul class="mui-table-view">
+                                                    <%if(!string.IsNullOrEmpty(model.accept_name))%>
+									    			<li class="mui-table-view-cell">
+									    				<ul class="mui-table-view">
+    <li class="mui-table-view-cell" style="color: deepskyblue;font-weight: bold;">收货信息</li>
+    <li class="mui-table-view-cell">顾客姓名：{model.accept_name}</li>
+    <li class="mui-table-view-cell">送货地址：{model.area} {model.address} {model.post_code}</li>
+    <li class="mui-table-view-cell">联系电话：{model.mobile} {model.telphone}</li>
+ 
+
+</ul>
+									    			</li>
+                                                    <%/if%>
+									    			<li class="mui-table-view-cell">
+									    				<p>生成时间: {model.add_time}</p>
+									    			</li>
+									    		</ul>
+									    			
+									    	</div>
+						</li>
+						
+				</ul>
+				<div class="ck">
+					<h3>提款金额</h3>
+					<p class="tkje">￥<%=(modelt.real_price*modelt.quantity)%></p>
+
+					<a href="" class="tkBtn">确定提款</a>
+					<a href="" class="gb" id="gbbtn"></a>
+				</div>
+				<div class="ckbg"></div>
+			</div>
+		</div>        <%/foreach%>
+        <%/if%>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+		
+		mui('body').on('tap','#sqtk',function(){
+			
+			$('.ck,.ckbg').css('display','block');
+		})
+		mui('body').on('tap','#gbbtn',function(){
+			$('.ck,.ckbg').css('display','none');
+		})
+		
+		//申请提款
+		mui('body').on('tap','.tkBtn',function(){
+			//订单号
+			//var orderNo ='<%=Qrcms.Common.DTRequest.GetString("order_no")%>'; 
+			var orderNo = $('#orderNo').val();
+			mui.ajax('/tools/submit_ajax.ashx?action=order_tikuan&order_no='+orderNo,{
+				type:"post",
+				datatype:'string',
+				success:function(data){
+					data = JSON.parse(data);
+					//alert(1);
+					if(data.status ==1){
+						mui.toast(data.msg);
+						setTimeout(function(){
+							location.href = 'my_orderlist.aspx';
+						},2000)
+					}else{
+						mui.toast(data.msg);
+					}
+				},
+				error:function(data){
+					alert(2);
+					mui.toast(data.msg);
+				}
+			})
+		})
+	</script>
+</html>

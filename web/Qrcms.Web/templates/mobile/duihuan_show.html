@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>商品详情</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/offcanvas-drag.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/swiper-3.4.2.min.css" />
+		<style>
+			.mui-toast-container{
+				bottom: 25%;
+			}
+			.swiper-container,.swiper-container .swiper-wrapper {
+				width: 100%;
+				height: 7.5rem;
+			}
+			.swiper-slide,.swiper-slide img{
+				width: 100%;
+				height: 7.5rem;
+			}
+			.swiper-pagination-bullet-active{
+				opacity: 1;
+				background: #902626 !important;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<%csharp%>
+ Qrcms.Model.users userModel = new Qrcms.Web.UI.UserPage().GetUserInfo();
+        decimal point = 0;
+        if (userModel != null)
+        {
+            point = userModel.point;
+        }
+		<%/csharp%>
+		<div class="mui-content goods_show">
+			<!--
+            	商品banner
+            -->
+			 <!--<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					 <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				   
+				    <div class="mui-slider-item"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				    
+				     <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="<%templateskin%>/images/banner2.png" /></a></div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator "></div>
+				</div>
+			</div>-->
+			
+			
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			    	 <%if(model.albums!=null)%>
+          <%foreach(Qrcms.Model.article_albums modelt in model.albums)%>
+			        <div class="swiper-slide">
+			        	<img src="{modelt.thumb_path}" />
+			        </div>
+			       <%/foreach%>
+          <%/if%>
+			    </div>
+    			<!-- 如果需要分页器 -->
+    			<div class="swiper-pagination"></div>
+    
+    
+  
+			</div>
+			
+			
+				<p>{model.title}</p>
+				<p id="goods_point">积分：<span class="point">{model.fields[point]}</span></p>
+				<p>
+					<span>运费：<i>{model.fields[yunfei]}</i></span>
+					<!--<span>月销量：<i>1587件</i></span>
+					<span><i>浙江杭州</i></span>-->
+				</p>
+			</div>
+			<!--
+            	选择商品规格
+            -->
+			<!--<div class="mui-input-group goods-spec">
+			    <div class="mui-input-row">
+			        <label>请选择规格 颜色</label>
+			        <input id="menu-btn" type="text" readonly >
+			    </div>
+			   
+			</div>-->
+			<div class="sj_price">
+					<span>数量:</span>
+					<div class="mui-numbox" data-numbox-step="1" data-numbox-min="0" data-numbox-max="100">
+									<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>	
+									<input type="text" value="1" class="mui-numbox-input" id="commoditySelectNum" />
+									<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+								</div>
+				<input type="hidden" name="stockQuantity" id="stockQuantity" value="4" />
+				</div>
+			<!--
+            	商家信息
+            -->
+			<!--<div class="shop_header mui-clearfix">
+            	<div>
+            		<img src="images/shop-logo1.png" alt="" />
+            	</div>
+            	<div>
+            		<p>OPPO旗舰店</p>
+            		<p>商家编号：<span id="shopno"></span></p>
+            	</div>
+			</div>-->
+			<!--
+            	商品图文详情
+            -->
+			<div class="detail">
+			    <h5><span>商品介绍</span></h5>
+			    <div>
+			    	<img src="<%templateskin%>/images/brandzt1.png" alt="" />
+			    </div>
+				<p>—— 已经到底了 ——</p>
+			</div>
+			
+		</div>
+		<div class="goods_showbtn">
+				
+					
+				
+				<span type="button" class=" mui-btn mui-btn-block" style="border: 1px solid rgb(253,165,0); background: rgb(253,165,0);display: inline-block;color: #fff;left: 0;" >账户积分<b id="person_point">{point}</b></span>
+				<button type="button" class="mui-btn mui-btn-blue" id="buy">立即购买</button>
+		</div>
+		<div id="menu-wrapper" class="menu_wrapper mui-hidden">
+				<input id="commodityArticleId" type="hidden" value="{model.id}" />
+                <input id="commodityGoodsId" type="hidden" value="0" />
+			<div id="menu" class="menu">
+				
+				<ul class="mui-table-view">
+					 <%set List<Qrcms.Model.article_goods_spec> specList=get_article_goods_spec(model.id, "parent_id=0")%>
+          <%if(specList!=null)%>
+          <%foreach(Qrcms.Model.article_goods_spec modelt1 in specList)%>
+					<li>
+						<div class="mui-row">
+							<p style="text-align: left; padding-left: 2.5%;">{modelt1.title}</p>
+							<input type="hidden" />
+							<%set List<Qrcms.Model.article_goods_spec> itemList=get_article_goods_spec(model.id, "parent_id="+modelt1.spec_id)%>
+                <%if(itemList!=null)%>
+                <%foreach(Qrcms.Model.article_goods_spec modelt2 in itemList)%>
+							<span class="mui-col-sm-3 mui-col-xs-3">
+								{modelt2.title}
+								<input type="hidden" />
+							</span>
+									 <%/foreach%>
+                <%/if%>
+						</div>
+					</li>
+					 <%/foreach%>
+                <%/if%>
+				
+				</ul>
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确定</button>
+			</div>
+		</div>
+		<div id="menu-backdrop" class="menu-backdrop"></div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/layer/laytpl/laytpl.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script src="<%templateskin%>/js/cart.js"></script>
+	<!--<script src="<%templateskin%>/js/goodsshow.js"></script>-->
+	<script>
+		mui.init();
+		var p={model.fields[point]};
+		
+		var pp=Math.abs(p);
+		
+		$(".point").html(pp);
+		
+//		mui('body').on('tap','#buy',function(){
+//			window.location.href = "confirm_order.aspx";
+//		})
+			var menuWrapper = document.getElementById("menu-wrapper");
+			var menu = document.getElementById("menu");
+			var menuWrapperClassList = menuWrapper.classList;
+//			var backdrop = document.getElementById("menu-backdrop");
+//			backdrop.addEventListener('tap', toggleMenu);
+//			document.getElementById("menu-btn").addEventListener('tap', function(){
+//				console.log(1);
+//				mui("#menu-wrapper")[0].style.bottom = "50px";
+//				mui(".menu-backdrop")[0].style.bottom = "50px";
+//				mui("#menu-wrapper .mui-btn-block")[0].style.display = "none";
+//				toggleMenu();
+//		});
+var num = document.getElementById('commoditySelectNum').value;
+		mui('body').on('tap','#buy',function(){
+			
+			var g={model.fields[point]};
+			//alert(g)
+			var p=$("#person_point").text();
+			if(g>p){
+				mui.toast("你的积分不足")
+} else {
+
+	mui.ajax('/tools/submit_ajax.ashx?action=order_save2', {
+			type: 'post',
+			datatype: 'string',
+			data: {
+				id: getQueryString('id'),
+				quantity: num
+			},
+			success: function(data) {
+				data = JSON.parse(data);
+				if(data.status == 1) {
+					//alert(99999)
+					
+					mui.toast(data.msg);
+					setTimeout(function(){
+						window.location.href = 'my_orderlist.aspx';
+					},2000)
+				} else{
+					//alert(8888)
+					mui.toast(data.msg);
+				}
+			}
+		}
+	)
+}})
+	
+
+
+</script>
+<script src="<%templateskin%>/js/swiper-3.4.2.min.js"></script>
+<script>
+	 var mySwiper = new Swiper ('.swiper-container', {
+		    direction: 'horizontal',
+		    loop: true,
+		    speed:300,
+		    // 如果需要分页器
+		    pagination: '.swiper-pagination',
+    
+   
+ 		})        
+</script>
+</html>

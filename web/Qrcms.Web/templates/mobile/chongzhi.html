@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+	
+		<link href="<%templateskin%>/css/mui.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<title>充值</title>
+		<style>
+			.mui-toast-container{
+				bottom: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content chongzhi">
+			<form id="cz_form">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<input type="text" name="order_amount" id="money_num" placeholder="请输入充值金额" datatype="n" errormsg="请输入充值金额"/>
+					</div>				
+				</div>
+			</form>
+			
+			<p class="kscz">快速充值</p>
+			<div class="cz_moneybox mui-clearfix" id="cz_money">
+					<label><span>200.18</span>元</label>
+					<label><span>300.66</span>元</label>
+					<label><span>500.68</span>元</label>
+					<label><span>1000.46</span>元</label>
+					<label><span>3000.56</span>元</label>
+					<label><span>5000.45</span>元</label>
+			</div>
+			<p class="kscz">支付方式</p>
+
+            <%set DataTable paymentList=get_payment_list(0, "is_lock=0 and (is_mobile=2)")%> <!--取得一个DataTable-->
+            <%loop dr1 paymentList%>
+
+            <p class="wxpay mui-clearfix">
+                {dr1[title]}
+                <span class="mui-checkbox mui-clearfix"><input type="radio" style='height:18px;width:18px' name="wxPay" value="{dr1[id]}"></span>
+            </p>
+           
+            <%/loop%>
+
+			<div class="goto_paybox" style='background:white;bottom:0px'>
+				<p>点击去充值，即表示阅读并同意<span>充值协议</span></p>
+				<p>玖方商城不会以任何形式要求您输入银行账户和密码</p>
+				<button id="chongzhi_submit" class="mui-btn mui-btn-block colorfff">去充值</button>
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		//MUI框架初始化
+		mui.init();
+		
+	
+	
+		//获取用户选择的充值金额
+		 var chongzhiBox = document.getElementById('cz_money');
+		 var label = chongzhiBox.getElementsByTagName('label');
+		 var money = '';
+		 for(var i = 0; i<label.length;i++){
+		 	label[i].onclick = function(){		 		
+		 		money = $(this).children().text();
+		 		console.log(money);
+		 		$(this).siblings().removeClass('active');
+		 		$(this).addClass('active');
+		 		
+		 		
+		 		$("#money_num").val(money);
+		 		
+		 		
+		 	}
+		 }
+	
+		
+		//用户提交相关数据
+		mui('body').on('tap','#chongzhi_submit',function(){
+			var money_num = document.getElementById('money_num').value;
+			var pay_id = $("input[name='wxPay']:checked").val();
+			if(money == 0 && money_num ==""){
+			    mui.toast('请输入或者选择充值金额');
+			    return false;
+			}
+			if (!pay_id) {
+			    mui.toast('请选择支付方式！');
+			    return false;
+			}
+			else {
+					mui.ajax("/tools/submit_ajax.ashx?action=user_amount_recharge&site=mobile",{
+						data:{
+							order_amount:document.getElementById('money_num').value,
+							payment_id:pay_id
+						},
+						dataType:"json",
+						type:"post",
+						success:function(data){
+							if(data.status == "1"){
+								mui.toast(data.msg);
+								setTimeout(function(){
+									window.location.href = data.url;
+								},1000)
+							}else{
+								mui.toast(data.msg);
+							}
+						}
+					})
+			 	}
+			
+			
+			
+		})
+		
+		$('.wxpay').eq(1).hide();
+</script>
+</html>

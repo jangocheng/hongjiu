@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!--商户号-->
+  <merNo>MS0000002565933</merNo>
+  <!--请求地址-->
+  <url>http://scp.yufu99.com/scanpay-api/api/wxGZHUnifiedOrder20</url>
+  <!--密钥-->
+  <Key>eecfc590d398413b903f9e8966a01cop</Key>
+  <!--支付结果异步通知地址-->
+  <notifyUrl>/api/payment/weixingzhzf/notify_url.aspx</notifyUrl>
+</Root>

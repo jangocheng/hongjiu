@@ -1,0 +1,112 @@
+﻿<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-toast-container{
+				bottom: 15%;
+			}
+		</style>
+		
+	</head>
+
+	<body style="min-height: 100%;background: #F2F2F2;">
+		<div class="mui-content login ">
+		    <div class="mui-input-group " >
+		     
+		    	<form id="login_form" class="login_form">
+                    <input type="hidden" name="openid" id="openid" value="<%=Qrcms.Common.DTRequest.GetString("openid")%>" />
+			        <div class="mui-input-row">
+			            <input type="text" name="txtUserName" id="txtPhone" datatype="phone" errormsg="请填写正确的手机号码！" class="mui-input-clear" placeholder="请输入手机号码">
+			        </div>
+			        <div class="mui-input-row">
+			            <input type="password" name="txtPassword" id="txtPassword" datatype="notnull" errormsg="请输入密码！" class="mui-input-clear" placeholder="请输入密码">
+			         <a href="wj_password.aspx" id="forget-password" >忘记密码</a>
+			        </div>
+		        </form>
+		  
+		    </div>
+		     <button id="login_submit" type="button" class="mui-btn mui-btn-blue mui-btn-block loginbtn">立即登录</button>
+		    <p>没有账号？<a id="register" href="/mobile/register.aspx?openid=<%=Qrcms.Common.DTRequest.GetString("openid")%>">立即注册</a></p>
+		   
+		</div>
+		
+		
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	
+	<script>
+		mui.init();
+		
+		/*用户登录提交手机号码和密码*/
+		mui('body').on('tap','#login_submit',function(){
+			//mui.toast(1);
+			//var formdata = serialize(document.getElementById('login_form'));//获取登录数据
+			var formdata = $('#login_form').serialize();
+			console.log(formdata);
+			//mui.toast(formdata);
+				mui.ajax('/tools/submit_ajax.ashx?action=user_login&site=mobile',{
+					data:formdata,
+					datatype:'string',
+					type:'post',
+					async:false,
+					success:function(data){
+						console.log('成功');
+						//alert(1);
+						//mui.toast(2);
+						data = JSON.parse(data);
+						if(data.status ==1){
+							
+							location.href ='usercenter.aspx';
+						}else{
+							mui.toast('手机号或者密码错误');
+						}
+					},
+					error:function(data){
+						//data = JSON.stringify(data);
+						//mui.toast(data);
+						//location.href ='usercenter.aspx';
+						mui.toast('登录失败');
+					}
+				})
+			
+		})
+		
+		
+		/*页面跳转*/
+//		mui('body').on('tap','a',function(){
+//			
+//			window.location.href = this.href;
+//			
+//		})
+//		mui('body').on('tap','#register',function(){
+//			
+//			window.location.href = this.href;
+//			
+//		});
+//		mui('body').on('tap','#forget-password',function(){
+//			alert(1)
+//			window.location.href = "wj_password.aspx";
+//			
+//		});
+		mui('body').on('tap','a',function(){
+			//alert(1);
+			location.href = this.href;
+		});
+
+		mui('body').on('tap','#register',function(){
+			location.href = this.href ;
+		})
+		
+		
+//		
+		//用户登录提交相关数据
+		
+	</script>
+</html>

@@ -1,0 +1,61 @@
+.head_img{
+	
+}
+.head_img .head_bg{
+	width: 100%;
+   position: relative;
+    z-index: 1;
+    top: 0px!important;
+}
+.head_img .uptitle{
+	    display: block;
+    width: 100%;
+    z-index: 2;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.58);
+        position: relative;
+    top: -1.5rem;
+}
+
+.prolistBox{
+	    position: relative;
+    top: -1.5rem;
+}
+.prolistBox .prolist{
+	width: 6.7rem;
+	margin: 0 auto;
+	box-sizing: border-box;
+    background: #fff;
+    z-index: 9;
+    position: relative;
+}
+.prolist ul{
+	min-height: 6rem;
+    width: 100%;
+    margin: 0 auto;
+    background: #823c1b;
+    position: relative;
+    overflow: hidden;
+}
+.prolist ul:before{
+	    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    height: 6rem;
+    width: 1px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(rgba(200,185,55,.4)), to(rgba(0,0,0,0)));
+}
+.prolist ul li{
+	    color: rgb(239,200,111);
+    width: 100%;
+    min-height: 3rem;
+    margin-bottom: .4rem;
+    position: relative;
+}
+.prolist ul li .inner{
+	    padding: .65rem;
+}
+.prolist ul li .left{
+	position: relative;
+}

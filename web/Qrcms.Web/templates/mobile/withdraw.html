@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+		<title>提货详情</title>
+		<style>
+			.redbao_jl .mui-card .main p span {
+				font-size: 14px;
+				float: none;
+				color: #999;
+			}
+			
+			.redbao_jl .mui-card .dizhi p span {
+				color: #8f8f94;
+				font-size: 14px;
+				float: none;
+			}
+			
+			.redbao_jl .mui-card .dizhi p .mui-pull-right {
+				float: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content redbao_jl">
+			<div class="hb_goods">
+				<ul>
+					<%if(model.order_goods!=null)%>
+					<%foreach(Qrcms.Model.order_goods modelt in model.order_goods)%>
+					<li class="mui-card">
+						<p class="mui-clearfix">订单号{model.order_no}<span>已中奖</span></p>
+						<div class="goods-list">
+
+							<div style="background: #fff url(<%=get_article_img_url(modelt.article_id)%>) no-repeat 12px 10px/100px 100px;min-height: 100px;">
+								<p>{modelt.goods_title}</p>
+								<p class="price mui-clearfix mui-text-right">￥{modelt.real_price}&nbsp;&nbsp;&nbsp;数量：×<span>{modelt.quantity}</span></p>
+							</div>
+
+						</div>
+						<div>
+
+							<ul class="mui-table-view main">
+								<li class="mui-table-view-cell">
+									<p>提款金额: <span>2999</span></p>
+									<p>奖励佣金: <span>20</span></p>
+								</li>
+
+								<li class="mui-table-view-cell">
+									<p>生成时间: <span>2017-07-31 18:00</span></p>
+								</li>
+								<li class="mui-table-view-cell">
+									<p>订单状态: <span>待支付</span></p>
+								</li>
+							</ul>
+
+						</div>
+					</li>
+					<%/foreach%>
+					<%/if%>
+				</ul>
+
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+
+		mui('body').on('tap', '#sqtk', function() {
+
+			$('.ck,.ckbg').css('display', 'block');
+		})
+		mui('body').on('tap', '#gbbtn', function() {
+			$('.ck,.ckbg').css('display', 'none');
+		})
+	</script>
+
+</html>

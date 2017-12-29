@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人中心</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+
+		<style>
+			.woyao_dh{
+				background: #fff url(<%templateskin%>/images/userbg_08.png) no-repeat 10px 5px;
+				background-size:25px ;
+			}
+			.wo_caifu{
+				background: #fff url(<%templateskin%>/images/my_caifu.png) no-repeat 10px 5px;
+				background-size:23px ;
+			}
+			.wo_hy{
+				background: #fff url(<%templateskin%>/images/my_friend.png) no-repeat 10px 5px;
+				background-size:25px ;
+			}
+			.wo_yeji{
+				background: #fff url(<%templateskin%>/images/my_yeji.png) no-repeat 10px 8px;
+				background-size:23px ;
+			}
+		</style>
+
+		<style>
+			.woyao_dh{
+				background: #fff url(<%templateskin%>/images/userbg_08.png) no-repeat 10px 5px;
+				background-size:25px ;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="mui-content grzx">
+			<div class="user_head">
+				<div>
+					<a href="person_zl.aspx">
+						<img src="{userModel.avatar}">
+						<p>
+							<span style="font-size: 16px;">{userModel.user_name}</span>
+						</p>
+						
+					</a>
+					<p>
+						<a href="my_money.aspx"><span>余额 {userModel.amount}</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="tixian.aspx"><span>提现</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="chongzhi.aspx"><span style="    font-size: 16px; color: #CA0000;">充值</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="my_jifen.aspx"><span>积分{userModel.point}</span></a>
+					</p>
+				</div>
+				
+			</div>
+			<div>
+				<ul class="mui-table-view grzx_list orderbg">
+					<li>
+						<a href="my_orderlist.aspx" class="mui-navigate-right">全部订单</a>
+					</li>
+					
+				</ul>
+				<!--<div class="all_order">
+						<ul class="mui-clearfix">
+							<li>
+								<a href="my_orderlist.aspx?status=1">
+									<img src="<%templateskin%>/images/dingdan4.png">
+									<p>待支付</p>
+								</a>
+							</li>
+							<li>
+								<a href="my_orderlist.aspx?status=2">
+									<img src="<%templateskin%>/images/dingdan3.png">
+									<p>待收货</p>
+								</a>
+							</li>
+							<li>
+								<a href="my_orderlist.aspx?status=3">
+									<img src="<%templateskin%>/images/dingdan2.png">
+									<p>待完成</p>
+								</a>
+							</li>
+							<li>
+								<a href="my_orderlist.aspx?status=4">
+									<img src="<%templateskin%>/images/dingdan.png">
+									<p>退款/退货</p>
+								</a>
+							</li>
+						</ul>
+				</div>-->
+				<ul class="mui-table-view grzx_list mtp woyao_sj">
+					<li class="mui-table-cell">
+						<a href="sj_products.aspx?category_id=58" class="mui-navigate-right">我要升级</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view grzx_list mtp woyao_sj wo_caifu">
+					<li class="mui-table-cell">
+						<a href="my_money.aspx" class="mui-navigate-right">我的财富</a>
+					</li>
+				</ul>
+		
+				<!--<ul class="mui-table-view grzx_list mtp woyao_sj">
+					<li class="mui-table-cell">
+						<a href="my_money.aspx" class="mui-navigate-right">我的财富</a>
+					</li>
+				</ul>-->
+
+				<ul class="mui-table-view grzx_list woyao_dh">
+					<li class="mui-table-cell">
+						<a href="duihuan_zq.aspx" class="mui-navigate-right">兑换专区</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view grzx_list mtp woyao_rz">
+					<li class="mui-table-cell">
+						<a href="realname_sucess.aspx" class="mui-navigate-right">实名认证</a>
+					</li>
+				</ul>
+                   <%if(groupModel.is_QRcodestate==1)%>
+		<ul class="mui-table-view grzx_list mtp woyao_sj wo_yeji">
+					<li class="mui-table-cell">
+						<a href="my_yeji.aspx" class="mui-navigate-right">我的盈利</a>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view grzx_list woyao_fx ">
+					<li class="mui-table-cell">
+						<a href="share_ewm.aspx" class="mui-navigate-right">分享二维码</a>
+					</li>
+				</ul>
+
+              
+				<ul class="mui-table-view grzx_list woyao_tuijian wo_hy ">
+
+				<ul class="mui-table-view grzx_list woyao_tuijian ">
+
+              
+				<ul class="mui-table-view grzx_list woyao_tuijian mtp">
+
+					<li class="mui-table-cell">
+						<a href="my_tuijian.aspx" class="mui-navigate-right">我的推荐</a>
+					</li>
+				</ul>  <%/if%>
+				<ul class="mui-table-view grzx_list mtp woyao_hbjl">
+					<li class="mui-table-cell">
+						<a href="redbao_record.aspx" class="mui-navigate-right">我的红包记录</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view grzx_list woyao_sjjl">
+					<li class="mui-table-cell">
+						<a href="upgrade_record.aspx" class="mui-navigate-right">我的升级记录</a>
+					</li>
+				</ul>
+				<!--<ul class="mui-table-view grzx_list mtp">
+					<li class="mui-table-cell">
+						<a href="my-money.html" class="mui-navigate-right">我的财富</a>
+					</li>
+				</ul>
+				
+				
+				
+				
+				<ul class="mui-table-view grzx_list mtp">
+					<li class="mui-table-cell">
+						<a href="my-orderlist.html" class="mui-navigate-right">我的订单</a>
+					</li>
+				</ul>-->
+				
+				
+				
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a href="index.aspx" class="mui-tab-item ">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <!--<a href="shop_cart.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>-->
+		    <a href="usercenter.aspx" class="mui-tab-item mui-active">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">个人中心</span>
+		    </a>
+		</nav>
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/webuploader.min.js"></script>
+	<script>
+		mui.init();
+		/*底部导航跳转*/
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		
+//		function shuaxin(){
+//			window.location.reload();
+//		}
+//		shuaxin();
+	//	window.location.href = 'usercenter.aspx';
+	</script>
+</html>

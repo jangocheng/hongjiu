@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link href="<%templateskin%>/css/style.css" rel="stylesheet" />
+		<title>提现</title>
+		<style>
+			.tixian .mui-card div{
+	height: 50px;
+	line-height: 50px;
+}
+.tixian .mui-card div i{
+	float: left;
+	width: 60%;
+	padding-left:10%;
+	font-style: normal;
+	color: #333131;
+	background: url(../images/yhk.png) no-repeat 5px center;
+	background-size: 25px;
+}
+.tixian .mui-card div span{
+	float: left;
+	width: 40%;
+	height: 50px;
+	line-height: 50px;
+	position: relative;
+	overflow: hidden;
+	
+}
+	.bankList{
+		position: absolute;
+		width: 70%;
+		/*padding: 0 20px;*/
+		height: 50%;
+		background: #fff;
+		z-index: 9999;
+		display: none;
+		left: 15%;
+		top: 25%;
+		border-radius: 5px;
+	}
+	.bankList ul{
+		width: 100%;
+		margin: 0;
+		padding-left: 12px;
+	}
+	.bankList li{
+		display: block;
+		width: 100%;
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.bankList li p{
+		width: 30%;
+		float: left;
+		margin-bottom: 0 !important;
+	}
+	.bankList li span{
+		width: 60%;
+		float: left;
+	}
+	.bankList li span{
+		font-size: 12px;
+	}
+	.bankList .gb_btn{
+		position: absolute;
+		height: 10px;
+		width: 10px;
+		background: #000;
+		top: -10px;
+		right: -10px;
+		background: url(<%templateskin%>/images/close.png) no-repeat center center;
+		background-size:100% 100% ;
+	}
+		.mui-toast-container{
+			bottom: 50%;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content tixian">
+			<div class="mui-card">
+				<p class="mui-clearfix"><i id="bankname_box"><b></b><em></em><b style="display: none;" id="kahao"></b></i><span class="mui-clearfix mui-pull-right"><a href="javascript:void(0)" id="change_bank">更换</a> <a href="add_bankcard.aspx" id="add">新增</a></span>
+			</p>
+			</div>
+			 <div class="mui-input-group">
+			      <form id="tixian_form">
+			      	<input type="hidden" name="bank_name" value="" id="bank_name"/>
+			      	<input type="hidden" name="bank_card" value="" id="bank_card"/>
+			      	<input type="hidden" name="bank_username" value="" id="bank_username" style="padding-left:5%;"/>
+			      	
+				      	 <div class="mui-input-row">
+				         	<span>提现金额</span><input type="text" name="money" id="txtMoney"  placeholder="" datatype="n" errormsg="请输入提现金额">
+				        </div>
+				        <div class="mui-input-row">
+				           <span>实际费用</span><i class="feiyong"></i>
+				        </div>
+				        <div class="mui-input-row">
+				           <span>实际扣除</span><i class="sjkc"></i>
+				        </div>
+			      </form>
+		    </div>
+		    <p class="tixian_notice">可提现金额：<span id="max_money">{userModel.amount}</span><span>元</span></p>
+		    <p class="tixian_notice2">1-2个工作日到账（双休和法定节日除外）</p>
+		    <button class="mui-btn mui-btn-block colorfff" id="tixian_submit">确认提现</button>
+		    <button class="mui-btn mui-btn-block colorfff" id="tixian_mingxi">提现明细</button>
+		    
+		</div>
+		<div class="mask"></div>
+		<div class="bankList">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul id="bank_ul">
+				
+					</ul>
+				</div>
+			</div>
+			<span class="gb_btn"></span>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script src="<%templateskin%>/js/common.js"></script>
+	<script>
+		//MUI框架的初始化
+		mui.init();
+		
+		//页面跳转--更换银行卡
+		/*mui('body').on('tap','#change_bank',function(){
+			window.location.href = 'person_zl.html#bank_page';
+		});*/
+		mui('body').on('tap','#add',function(){
+			window.location.href =this.href;
+		});
+		mui("body").on("tap","#tixian_mingxi",function(){
+			window.location.href ="mingxi.aspx";
+		});
+		
+		
+		
+		//更换
+	
+		//提现业务
+		var ratio={config.withdraw_deposit};
+		$("#txtMoney").keyup(function(){
+				console.log(1)
+				$(".feiyong").text(parseFloat(ratio));			//parseFloat($('#txtMoney').val())+
+				$(".sjkc").text(parseFloat($(".feiyong").text())+parseFloat($('#txtMoney').val()));
+		});
+		
+		mui('body').on('tap','#tixian_submit',function(){
+			var formdata = $("#tixian_form").serialize();
+			console.log(formdata);
+			
+			
+			
+			
+			if(getValid('tixian_form')){
+			   var maxMoney = document.getElementById('max_money').innerText;
+			   console.log(maxMoney);
+			   var tixianMoney = document.getElementById('txtMoney').value;
+			   console.log(tixianMoney);
+			   var cardname = $('#bankname_box b').html();
+			  
+			   if(parseFloat(maxMoney) < parseFloat(tixianMoney)){
+			   	console.log('可提现金额不足');
+			   		mui.toast('可提现金额不足');
+			   }else{
+			   			mui.ajax("/tools/submit_ajax.ashx?action=txjl_add",{
+					data:{
+						"bank_name":cardname,
+						"bank_card":document.getElementById('bank_card').value,
+						'bank_username':document.getElementById('bank_username').value,
+						'money':document.getElementById('txtMoney').value						
+					},
+					dataType:'json',
+					type:"post",
+					async:false,
+					success:function(data){
+						if(data.status == "1"){
+								mui.toast(data.msg)
+								setTimeout(function(){
+									//location.reload();
+									window.location.href = 'tixian.aspx';
+									
+								},2000)
+							}else{
+								mui.toast(data.msg)
+							}
+					}
+					
+				})
+			}
+			   }
+			
+		})
+		
+			function banklist(){
+			mui.ajax('/tools/submit_ajax.ashx?action=bankcard_select',{
+				datatype:'string',
+				type:'get',
+				success:function(data){
+				//	alert(9);
+				data = JSON.parse(data);
+				console.log(data);
+						//console.log(JSON.stringify(data));
+					if(data.status == 1){
+						
+						$('#bankname_box b').html(data.Rows[0].bank_name);
+						var cardNo1 = data.Rows[0].bank_card;
+						var chi_name = data.Rows[0].bank_username;
+						$('#bank_username').val(chi_name);
+						$('#bank_card').val(cardNo1);
+						
+						console.log(cardNo1.substr(cardNo1.length-4));
+						var weihao ="（尾号"+cardNo1.substr(cardNo1.length-4)+")";
+						$('#bankname_box em').html(weihao);
+						var html ='';
+						for(var i=0;i<data.Rows.length;i++){
+							
+							//html +="<li><a href='add_bankcard'><div class='mui-card'><p>"+data.Rows[i].bank_name+'</p><span>'+data.Rows[i].bank_card+'</span></div></a></li>';
+							html += '<li class="xz_bank mui-clearfix">';
+							html +="<p style='margin_bottom:0;float:left'>"+data.Rows[i].bank_name +"</p><span style='float:left'>";
+							html += data.Rows[i].bank_card + "</span><i style='display:none'>"+data.Rows[i].bank_username + "</i>";
+							html +="</li>";
+						}
+						$('#bank_ul').append(html);
+					}
+				}
+			})
+		}
+
+		banklist();
+		
+		mui('body').on('tap','#change_bank',function(){
+			$('.mask,.bankList').css('display','block');
+			
+		});
+		mui('body').on('tap','.gb_btn',function(){
+			$('.mask,.bankList').css('display','none');
+		});
+		mui('body').on('tap','.xz_bank',function(){
+//			var Bankid = $(this).attr('data-id');
+//			console.log(Bankid);
+			var bankname1 = $(this).find('p').html();
+			var bankno = $(this).find('span').html();
+			var user_name = $(this).find('i').html();
+			var weishu ="(尾号"+ bankno.substr(bankno.length-4)+")";
+			console.log(bankno);
+			console.log(weishu);
+			console.log(bankname1);
+			$('#bank_card').val(bankno);
+			$('#bank_username').val(user_name);
+			$('#bankname_box b').html(bankname1);
+			$('#bankname_box em').html(weishu);
+			$('.mask,.bankList').css('display','none');
+		});
+		
+		(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+		
+	</script>
+</html>

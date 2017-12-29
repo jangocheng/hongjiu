@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!--商户号-->
+  <!--<merNo>999102115200003</merNo>-->
+  <merNo>MS0000002565933</merNo>
+  <!--支付tiaozhuan地址http://scp.yufu99.com/scanpay-api/api/unifiedOrder20-->
+  <!--<url>http://140.206.72.238:10011/scanpay-api/api/unifiedOrder20</url>-->
+  <url>http://scp.yufu99.com/scanpay-api/api/unifiedOrder20</url>
+  <!--支付结果异步通知地址-->
+  <!--<Key>611d28c87f1d4c61ab0c5042071effc3</Key>-->
+  <Key>eecfc590d398413b903f9e8966a01cop</Key>
+  <notifyUrl>/api/payment/weixinsmtwo/notify_url.aspx</notifyUrl>
+</Root>

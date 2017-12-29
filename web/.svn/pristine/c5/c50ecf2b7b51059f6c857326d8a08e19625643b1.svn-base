@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>修改密码</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<style type="text/css">
+			.mui-toast-container{
+				bottom: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content modify-password">
+		   <form id="changePwd_form">
+		   	 <div class="mui-input-group">
+		        <div class="mui-input-row">
+		            <input type="password" id="txtOldPassword" name="txtOldPassword"  class="mui-input-clear" placeholder="请输入旧密码">
+		        </div>
+		        <div class="mui-input-row">
+		            <input type="password" id="txtPassword" name="txtPassword" class="mui-input-clear" placeholder="请输入新密码">
+		        </div>
+		        <div class="mui-input-row">
+		            <input type="password" id="txtPassword1" name="txtPassword1" class="mui-input-clear" placeholder="请再次输入新密码">
+		        </div>
+		    </div>
+		  
+		   </form>
+		    <button id="edit_submit" type="button" class="mui-btn mui-btn-blue mui-btn-block">提交修改</button>
+		</div>
+		<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+		<script src="<%templateskin%>/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui('body').on('tap','#edit_submit',function(){
+				if(document.getElementById('txtPassword').value != document.getElementById('txtPassword1').value){
+					mui.toast("两次密码输入不一致")
+				}else if(document.getElementById('txtOldPassword').value == ""){
+					mui.toast("旧密码不能为空")
+				}else if(document.getElementById('txtPassword1').value ==""){
+					mui.toast("新密码不能为空")
+				}else{
+					mui.ajax("/tools/submit_ajax.ashx?action=user_password_edit",{
+						data:{
+							txtOldPassword:document.getElementById('txtOldPassword').value,
+							txtPassword:document.getElementById('txtPassword').value,
+							txtPassword1:document.getElementById('txtPassword1').value
+						},
+						dataType:"json",
+						type:"post",
+						success:function(data){
+						
+							if(data.status == 1){
+								mui.toast(data.msg);
+								setTimeout(function(){
+									window.location.href = 'person_zl.aspx';
+								},1000)
+							}else{
+								mui.toast(data.msg);
+							}
+						},
+						error:function(a,b,c){
+							console.log(a+","+b+","+c)
+						}
+					})
+				}
+			})
+		</script>
+	</body>
+
+</html>

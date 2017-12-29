@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+    <link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+    <link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>猜牛牛</title>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div class="mui-content cainum">
+        <div class="head">
+
+        </div>
+        <div class="choose mui-clearfix" id="choose">
+            <span class="selected">有牛</span>
+            <span>没有牛</span>
+        </div>
+        <div>
+            <button class="sjBtn" id="sjBtn">点击升级</button>
+        </div>
+        <div class="rank">
+            <p class="mui-clearfix">
+                <span class="rank_left">开奖时间</span>
+                <span class="rank_center">开奖号码</span>
+                <span class="rank_right" style="color: #fff;">结果</span>
+            </p>
+            <div class="rank_ul" style="height: 120px;overflow: hidden;position: relative;">
+                <div class="bd">
+                    <ul id="wangqi_list">
+                        <!--
+                        <li>
+                            <span class="rank_left">2017-08-03 12:19:19</span>
+                            <span class="rank_center">4564231</span>
+                            <span class="rank_right">奇</span>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--<div class="times">
+            下期开奖时间4521452毫秒
+        </div>-->
+    </div>
+    <div class="mask" id="mask"></div>
+    <div class="jiou_tan" id="tan">
+
+        <span class="close_btn" id="close_btn"></span>
+        <!--<p>距离开奖时间：<span>151112112</span>毫秒</p>-->
+        <a href="upgrade_record.aspx" class="mui-btn wait_kj">等待开奖</a>
+    </div>
+</body>
+<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+<script src="<%templateskin%>/js/mui.min.js"></script>
+<script src="<%templateskin%>/js/jquery.SuperSlide.2.1.1.js"></script>
+<script>
+		mui.init();
+
+		//选择有牛或没有牛
+		mui('body').on('tap', '#choose span', function() {
+
+			$(this).addClass('selected').siblings().removeClass('selected');
+		});
+
+
+		mui('body').on('tap', '#close_btn', function() {
+			$('#mask,#tan').css('display', 'none');
+			location.href= 'usercenter.aspx'
+		});
+		mui('body').on('tap', '.wait_kj', function() {
+			location.href=this.href;
+		});
+		mui('body').on('tap', '#sjBtn', function() {
+			var orderNo ='<%=Qrcms.Common.DTRequest.GetString("order_no")%>';
+			var n = $("#choose span.selected").index()+6;			
+			var url = "/tools/submit_ajax.ashx?action=order_orders_sj";
+			mui.ajax(url, {
+				type: 'post',
+				datatype: 'string',
+				data: {
+					order_no: orderNo,
+					quiz: n,
+					type: 3
+				},
+				success: function(data){
+					data = JSON.parse(data);
+
+					if(data.status ==1){
+						$('#mask,#tan').css('display', 'block');
+						mui.toast("升级成功!请耐心等待开奖");
+					}else{
+					    mui.toast(data.msg);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			})
+		});
+
+		//加载往期竞猜牛牛结果
+		function loadsj(){
+
+		    mui.ajax('/tools/submit_ajax.ashx?action=order_orders_auction&type=3', {
+				datatype:'string',
+				type:'get',
+				success:function(data){
+					//alert(9);
+					data = JSON.parse(data);
+					if(data.status == 1){
+						//alert(2);
+						var jieghuo = '';
+						var html ='';
+						for(var i = 0; i<data.Rows.length;i++){
+						    if (data.Rows[i].quiz_result.toString().indexOf('6') != -1) {
+							    jieguo = '有牛'
+							}else{
+							    jieguo = '没有牛'
+							}
+							html += '<li><span class="rank_left">'+jsonDateFormat(data.Rows[i].quiz_date) +'</span><span class="rank_center">'+data.Rows[i].quiz_no +'</span><span class="rank_right">'+jieguo+'</span></li>';
+
+						}
+
+						$('#wangqi_list').append(html);
+					}else{
+						var html ='';
+						//alert(data.msg);
+						html += '<li style="text-align:center;font-size:12px">'+data.msg +'</li>';
+						$('#wangqi_list').append(html);
+					}
+				}
+
+			})
+		}
+
+		//调用加载函数
+		loadsj();
+		function jsonDateFormat(jsonDate) { //json时间格式转换
+			var date = new Date(parseInt(jsonDate.replace("/Date(", "").replace(")/", ""), 10));
+			var month = date.getMonth() + 1 < 10 ? +(date.getMonth() + 1) : date.getMonth() + 1;
+			var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var milliseconds = date.getMilliseconds();
+			return date.getFullYear() + "-" + getzf(month) + "-" + day + " " + getzf(hours) + ":" + getzf(minutes) + ":" + getzf(seconds) /* + "." + milliseconds*/ ;
+		};
+		function getzf(num) { //补0操作
+			if(parseInt(num) < 10) {
+				num = '0' + num;
+			}
+			return num;
+		};
+
+</script>
+<script type="text/javascript">
+		//alert(1);
+		jQuery(".rank_ul").slide({mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,vis:4});
+</script>
+
+</html>

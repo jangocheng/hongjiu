@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的好友</title>
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<style type="text/css">
+			.my_tuijian{
+				
+			}
+			.my_tuijian .bg{
+				width: 100%;
+			}
+			.my_tuijian .bg img{
+				width: 100%;
+				display: block;
+			}
+			.my_tuijian ul li{
+				height: auto;
+				padding: 5px 0;
+			}
+			.my_tuijian ul .hy_item:nth-of-type(2n){
+				background: #f4f4f4;
+			}
+			.my_tuijian ul li .tou_img{
+				width: 20%;
+				float: left;
+			}
+			.my_tuijian ul li .tou_img img{
+				width: 50px;
+				height: 50px;
+				border-radius:50% ;
+				margin: 0 auto;
+				display: block;
+			}
+			.my_tuijian ul li .hy_name{
+				width: 40%;
+				float: left;
+			}
+			.hy_name p{
+				color: #333;
+				font-size: 16px;
+				padding-top: 2px;
+				margin-bottom: 0;
+			}
+			
+			.hy_name span{
+				font-size: 14px;
+				color: #b7b6b6;
+			}
+			.hy_shujv{
+				width: 40%;
+				float: left;
+			}
+			.hy_shujv ul li{
+				float: left;
+				width: 50%;
+				height: 20px;
+				text-align: center;
+				font-size: 12px;
+				color: #b7b6b6;
+				margin-bottom: 5px;
+			}
+			.hy_shujv ul li:nth-of-type(2n){
+				border-left: 1px solid #b7b6b6;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content my_tuijian">
+			<div class="bg" style="height: 138px;overflow: hidden">
+				<img src="<%templateskin%>/images/my_tuijianbg_03.png">
+			</div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul>
+                        <%set DataTable tb= new Qrcms.BLL.users().GetList(10000," parent_user='"+userModel.user_name+"'"," id desc").Tables[0]%>
+                        <%loop row tb%>
+						<li class="mui-clearfix hy_item">
+							<div class="tou_img">
+								<img src="{row[avatar]}">
+							</div>
+							<div class="hy_name">
+								<p>{row[nick_name]}</p>
+								<span>{row[user_name]}</span>
+							</div>
+							
+						</li>
+                        <%/loop%>
+						<%if(tb.Rows.Count<=0)%>
+						<li class="mui-clearfix hy_item" style="    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    color: #777;">
+							暂无记录
+						</li>
+                        <%/if%>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+		<script>
+			(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+		</script>
+</html>

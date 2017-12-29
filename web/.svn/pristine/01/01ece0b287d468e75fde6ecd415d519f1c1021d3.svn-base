@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/swiper-3.4.2.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/products.css" />
+		<title>升级</title>
+		<style type="text/css">
+			.mui-bar-tab .mui-tab-item.mui-active {
+    color: #902626;
+}
+			.mui-scroll-wrapper{
+				top: 40%;
+			}
+			
+			.pro_list{
+				width: 100%;
+				background: rgb(125,0,0);
+				padding: 0 2.5%;
+				padding-bottom: 50px;
+			
+			}
+    
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content pro_sj" style="padding-top: 220px;">
+		
+				
+						<div class="pro_list" >
+					<%set DataTable iud=get_article_list(channel, category_id,10, page, "status=0 and is_upgrade=1", out totalcount, out pagelist, "sj_products", category_id, "__id__")%>
+<%loop ths iud%>
+				<div class="pro_common">
+					<div class="sj_icon"></div>
+					
+					<ul class="mui-clearfix">
+						
+					
+						<li>
+							<a href="goods_show.aspx?id={ths[id]}">
+								<div class="sj_proimg">
+									<img src="{ths[img_url]}">
+								</div>
+								<p>{ths[title]}</p>
+								<p>{ths[sub_title]}</p>
+								
+							</a>
+							<div class="sj_icon2">
+									<p>市场价</p>
+									<span>{ths[sell_price]}</span>
+									<i>元</i>
+							</div>
+						</li>
+							
+						<li>
+							<a href="javascript:void(0)">
+								<div class="sj_proimg">
+									<img src="<%=get_filed(channel,"img_url","id="+Utils.ObjToInt(ths["big_upgrade"],0))%>
+">
+
+								</div>
+								<p><%=get_filed(channel,"title","id="+Utils.ObjToInt(ths["big_upgrade"],0))%></p>
+								<p></p>
+							</a>
+							<div class="sj_icon2">
+									<p>优购价</p>
+									<span><%=get_filed(channel,"sell_price","id="+Utils.ObjToInt(ths["big_upgrade"],0))%></span>
+									<i>元</i>
+							</div>
+						</li>
+					</ul>
+				
+				</div>
+					 <%/loop%>
+				<!--<div class="pro_common">
+					<div class="sj_icon"></div>
+					<ul class="mui-clearfix">
+						<li>
+							<a href="">
+								<div class="sj_proimg">
+									<img src="<%templateskin%>/images/sjpro.png">
+								</div>
+								<p>长城·星级系列</p>
+								<p>三星赤霞珠干红1瓶装</p>
+							</a>
+							<div class="sj_icon2">
+									<p>市场价</p>
+									<span>199</span>
+									<i>元</i>
+							</div>
+						</li>
+						<li>
+							<a href="">
+								<div class="sj_proimg">
+									<img src="<%templateskin%>/images/sjpro2.png">
+								</div>
+								<p>长城·星级系列</p>
+								<p>三星赤霞珠干红1瓶装</p>
+							</a>
+							<div class="sj_icon2">
+									<p>优购价</p>
+									<span>599</span>
+									<i>元</i>
+							</div>
+						</li>
+					</ul>
+				</div>-->
+			
+			
+				</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab" style="margin-top: 20px;">
+		    <a href="index.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <!--<a href="shop_cart.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>-->
+		    <a href="usercenter.aspx" class="mui-tab-item" id="my_usercenter">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">个人中心</span>
+		    </a>
+		</nav>
+	</body>
+	<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+		
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		mui('body').on('tap','.pro_list ul li a',function(){
+			location.href = this.href ;
+		});
+		
+			(function($){
+		    $(".mui-scroll-wrapper").scroll({
+		        //bounce: false,//滚动条是否有弹力默认是true
+		        //indicators: false, //是否显示滚动条,默认是true
+		    });
+    
+		})(mui);
+	</script>
+</html>

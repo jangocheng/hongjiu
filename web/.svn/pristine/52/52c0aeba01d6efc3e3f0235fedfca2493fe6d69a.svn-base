@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />	
+		<title>实名认证成功</title>
+	</head>
+	<body>
+        <%csharp%>
+        if(string.IsNullOrEmpty(userModel.real_name) || string.IsNullOrEmpty(userModel.idcard))
+        {
+        Response.Redirect("/mobile/realname_rz.aspx");
+        }
+        string str=userModel.idcard;
+        str = str.Remove((str.Length < 8 ? 8:str.Length)-8);
+        str=str+"********";
+        <%/csharp%>
+		<div class="mui-content shiming_cg">
+			<div class="shiming_head">
+				<img src="<%templateskin%>/images/shiming1.png">
+				<p>更安全、更便捷的购物新体验</p>
+			</div>
+			<div class="mui-card">
+				<p>本人姓名<span>{userModel.real_name}</span></p>
+			</div>
+			<div class="mui-card">
+				<p>身份证号<span>{str}</span></p>
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+		//数据模拟，加载数据
+//		function loadsj(){
+//			$.ajax({
+//				url:'js/shiming.json',
+//				type:'get',
+//				datatype:'json',
+//				success:function(data){
+//					console.log('成功进来');
+//					var idcardstr = data.people[0].idcard;
+//					console.log(idcardstr);
+//					var idcard_tou = idcardstr.substring(0,6);
+//					console.log(idcard_tou);
+//					var idcard_wei = idcardstr.substr(idcardstr.length - 4,4);
+//					console.log(idcard_wei);
+//					var html ="";
+//					html += '<div class="mui-card"><p>本人姓名<span>'+data.people[0].realName+'</span></p></div>';
+//					html += '<div class="mui-card"><p>身份证号<span>'+idcard_tou+'&nbsp;&nbsp;'+'****'+'****'+'&nbsp;&nbsp;'+idcard_wei+'</span></p></div>'
+//					console.log(html);
+//					$('.shiming_cg').append(html);
+//				}
+//			})
+//		}
+//		loadsj();
+	</script>
+</html>
+

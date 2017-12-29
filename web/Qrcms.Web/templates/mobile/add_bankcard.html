@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>绑定银行卡</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link href="<%templateskin%>/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+	</head>
+	<style type="text/css">
+		.bindbankcard {font-size: 14px;}
+		.bindbankcard input{font-size: 14px;}
+		.mui-toast-container{
+			bottom: 30%;
+		}
+	</style>
+	<body>
+		<div class="mui-content my-bankcard">
+		    <div class="bindbankcard">
+					<div class="mui-input-group">
+						<form id="bank_form">
+			    	    <div class="mui-input-row">
+			    	        <label>开户银行</label>
+			    	        <input type="text" name="bank_name" id="Bankmc" datatype="notnull" errormsg="请输入开户银行!" class="mui-input-clear" placeholder="选择开户银行">
+			    	        <input type="hidden" value="" name="id" id="BankId" />
+			    	    </div>
+			    	    <div class="mui-input-row">
+			    	        <label>户名</label>
+			    	        <input type="text" name="bank_username" id="BankTrueName" datatype="name" errormsg="请输入开户名!" class="mui-input-clear" placeholder="填写银行卡户名">
+			    	    </div>
+			    	    <div class="mui-input-row">
+			    	        <label>卡号</label>
+			    	        <input type="text" name="bank_card" id="BankCardNo" datatype="bankcard" errormsg="请输入正确的银行卡号!" class="mui-input-clear" placeholder="填写银行卡卡号">
+			    	    </div>
+			    	    <div class="mui-input-row mui-hidden">
+			    	        <label>支行</label>
+			    	        <input type="text" name="zhihang" id="zhihang" datatype="notnull" errormsg="请输入银行支行!" class="mui-input-clear" placeholder="填写银行支行" value="1">
+			    	    </div>
+			    	    </form>
+		    	   </div>
+			    	<p>注：<br>
+			    	1.请确认所填写的银行卡信息无误后进行提交，不可更改。<br>
+					2.绑定的银行卡,如丢失请及时挂失补卡,
+					以免因账户逾期对您个人征信造成不良影响.
+			    	</p>
+			    	<button id="submit" type="button" class="mui-btn mui-btn-blue mui-btn-block">确认提交</button>
+			    </div>
+		</div>
+		<script src="<%templateskin%>/js/jquery-1.7.2.min.js"></script>
+		<script src="<%templateskin%>/js/mui.min.js"></script>
+		<script src="<%templateskin%>/js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+		
+			
+			var id = getQueryString('id');
+			console.log(id);
+			function getinfo(id){
+				$.ajax({
+						type:"get",
+						url:"/tools/submit_ajax.ashx?action=bankcard_selectid",
+						async:true,
+						data:{
+							id:id
+						},
+						dataType:"json",
+						success:function(data){
+							if(data.status == 1){
+//								$("#fbbus_customername").val(data.rows[0].subname);
+								$('#BankId').val(data.Rows[0].id);
+								$('#Bankmc').val(data.Rows[0].bank_name);
+								$('#BankTrueName').val(data.Rows[0].bank_username);
+								$('#BankCardNo').val(data.Rows[0].bank_card);
+								
+							}else{
+								//layer.msg(data.msg);
+								
+							}
+						},
+						error:function(){
+						//	layer.msg(data.msg);
+						}
+					});
+			}
+			if(id){
+				getinfo(id);
+			}
+			
+			
+			var action ='';
+			if(id){
+				action='bankcard_update'
+			}else{
+				action ='bankcard_add'
+			}
+			
+			//提交银行卡
+			mui('body').on('tap','#submit',function(){
+				if(getValid('bank_form')){
+					console.log("准备提交！");
+				
+					
+					mui.ajax('/tools/submit_ajax.ashx?action='+action,{
+						data:{
+							'id':document.getElementById('BankId').value,
+							'bank_name':document.getElementById('Bankmc').value,
+							'bank_username':document.getElementById('BankTrueName').value,
+							'bank_card':document.getElementById('BankCardNo').value
+						},
+						dataType:'json',
+						type:'post',
+						async:true,
+						success:function(data){
+							//data = JSON.parse(data);
+							if(data.status ==1){
+								//mui.toast(2);
+								mui.toast(data.msg);
+								setTimeout(function(){
+									window.location.href = 'usercenter.aspx';
+								},2000)
+							}else{
+								mui.toast(data.msg);
+							}
+						},
+						error:function(data){
+							mui.toast(1);
+							mui.toast(data.msg);
+						}
+					})
+				}else{
+					
+				}
+			});
+		</script>
+	</body>
+
+</html>

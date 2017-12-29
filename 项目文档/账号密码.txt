@@ -1,0 +1,100 @@
+管理员：admin  123456a
+        hzqianren  123456a
+
+
+
+
+
+黄：13507720710 qwert   密码有点不确定了，可能是963977004或者加个h
+刘云：18107715555           830708     
+
+ 15577206037  q123456789
+
+
+服务器地址：在西部数码  https://www.west.cn/usermanager/renzheng.asp
+
+账户：jiufang9，密码：888888
+
+
+
+之前部署地址：http://www.jiufangzc.com/admin/index.aspx
+
+
+数据库服务器：sql.db95.vhostgo.com
+数据库名称（数据库用户名）：jiufang2017   de5dkb7vhj
+
+
+域名转移 
+
+http://www.jiufanggxnn2017.com/ 888888
+
+ftp://jiufang99.gotoftp3.com/wwwroot/hongjiu/
+ftp:jiufang99    	r7j6c3y7
+
+
+
+
+
+
+
+商户号：MS0000002565933
+
+支付接口:http://scp.yufu99.com/scanpay-api/api/wxGZHUnifiedOrder20
+
+商户密钥:eecfc590d398413b903f9e8966a01cop
+
+
+账号：102514063723
+密码：Aaa1D1cb
+密钥：9206ab6444407e9fe96e2b41bc9514d0
+
+账号：102594063718
+密码：ce78D28A
+密钥：41b085813fa49af6c503c03876e97de7
+
+账号：102514108270
+密码：928EgA3g
+密钥：7aea50b8d2761068238eb0a0c80a5fbf
+
+
+账号：7551000001
+密钥：9d101c97133837e13dde2d32a5054abb
+
+https://citicmch.swifpass.cn
+
+https://spay3.swiftpass.cn/spay/payMoneyNew?openID=oMJGHs8ZLs6CL4iSz2isBE3X5YP0&redirect=true&mchId=102514063723&client=platform&userId=102514063723
+
+
+
+"trade_state""SUCCESS"
+
+
+"sub_appid and sub_openid not match"
+
+"sub_mch_id与sub_appid不匹配"
+
+
+系统管理员：hzqianren   hongjiu_admin!23
+
+管理员：admin   hongjiu_!5634
+
+新公众号：玖方红酒商城
+新的：418750427@qq.com
+密码：A310038abc
+
+
+https://citicmch.swiftpass.cn/system/index
+
+
+
+中信总行-微信2通道
+
+"{\"appId\":\"wx290ce4878c94369d\",\"timeStamp\":\"1510146999771\",\"status\":\"0\",\"signType\":\"MD5\",\"package\":\"prepay_id=wx201711082116397957cfddeb0830440697\",\"callback_url\":\"https://www.swiftpass.cn\",\"nonceStr\":\"1510146999771\",\"paySign\":\"9CD999128EFB23A3E7B844A5D6E00612\"}"
+
+
+18978944670
+
+
+
+http://www.jiufangzc.com/aspx/mobile/login.aspx
+

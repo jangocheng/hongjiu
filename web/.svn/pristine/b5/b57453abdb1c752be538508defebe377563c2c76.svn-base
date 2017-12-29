@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Qaptcha.aspx.cs" Inherits="Qrcms.Web.adminusers.Qaptcha" %>

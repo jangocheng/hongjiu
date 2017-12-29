@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<title>我的佣金</title>
+	</head>
+	<body>
+		<div class="mui-content yongjin">
+			<div class="yongjin_head">
+				<p>佣金余额（元）</p>
+				<p>{userModel.commision}</p>
+			</div>
+			<!--<div class="tx_cz mui-clearfix">
+				<ul>
+					<li class="mui-clearfix">
+						<a href="tixian.aspx">
+							<img src="<%templateskin%>/images/myyue.png">
+							<p>提现</p>
+						</a>
+					</li>
+					<li class="mui-clearfix">
+						<a href="chongzhi.aspx">
+							<img src="<%templateskin%>/images/myyue-cz.png">
+							<p>充值</p>
+						</a>
+					</li>
+				</ul>
+				
+			</div>-->
+			<div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="tixian.aspx" class="mui-navigate-right">提现</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view mtp">
+					<li class="mui-table-view-cell">
+						<a href="yj_mingxi.aspx" class="mui-navigate-right">查看明细</a>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+	</body>
+</html>

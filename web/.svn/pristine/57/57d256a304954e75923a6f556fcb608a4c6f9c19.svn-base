@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />		
+		<title>红包记录</title>
+	</head>
+	<body>
+		<div class="mui-content redbao_jl">
+			<div class="hbjl_banner">
+				<img src="<%templateskin%>/images/hbjl.png">
+			</div>
+			<div class="hb_goods">
+				<ul>
+					<li class="mui-card">
+						<p class="mui-clearfix">订单号1111111111111<span>已中奖</span></p>
+						<div class="goods-list">
+									    		
+									 <div style="background: #fff url(<%templateskin%>/images/myorder1.png) no-repeat 12px 10px/100px 100px;min-height: 100px;">
+										 <p>买1箱得2箱 法国原瓶进口波尔多AOC 红酒MS干红葡萄酒整箱</p>
+										  <p class="price mui-clearfix">￥2999<a href="" id="sqtk">申请提款</a></p>  		
+									</div>
+										    	
+								</div>
+									    	<div>
+									    		
+									    		<ul class="mui-table-view">
+									    			<li class="mui-table-view-cell">
+									    				<a href="" class="mui-navigate-right">请选择收货地址</a>
+									    			</li>
+									    			<li class="mui-table-view-cell">
+									    				<p>生成时间: 2017-07-31 18:00</p>
+									    			</li>
+									    		</ul>
+									    			
+									    	</div>
+						</li>
+				</ul>
+				<div class="ck">
+					<h3>提款金额</h3>
+					<p class="tkje">￥<span>2999</span></p>
+					<p class="jlyj">奖励佣金：￥29.9</p>
+					<a href="" class="tkBtn">确定提款</a>
+					<a href="" class="gb" id="gbbtn"></a>
+				</div>
+				<div class="ckbg"></div>
+			</div>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+		
+		mui('body').on('tap','#sqtk',function(){
+			
+			$('.ck,.ckbg').css('display','block');
+		})
+		mui('body').on('tap','#gbbtn',function(){
+			$('.ck,.ckbg').css('display','none');
+		})
+		
+	</script>
+</html>

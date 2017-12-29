@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />
+		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<title>我的财富</title>
+	</head>
+	<body>
+		<div class="mui-content my_account">
+			<img src="<%templateskin%>/images/account-icon.png" alt="" />
+			<p id="amount">{userModel.amount}</p>
+			<span>余额(元)</span>
+		    <a  href="chongzhi.aspx" class="mui-btn mui-btn-blue mui-btn-block">充值</button>
+		    <a  href="tixian.aspx" class="mui-btn mui-btn-blue mui-btn-block">提现</a>
+		    <a href="sz_mingxi.aspx" class="mui-btn mui-btn-blue mui-btn-block">查看明细</a>
+		</div>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	<script>
+		mui.init();
+	</script>
+</html>

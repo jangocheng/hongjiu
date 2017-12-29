@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="<%templateskin%>/css/base.css" />		
+		<link rel="stylesheet" href="<%templateskin%>/css/mui.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/swiper-3.4.2.min.css" />
+		<link rel="stylesheet" href="<%templateskin%>/css/iconfont.css" />
+		<title>首页</title>
+		<style type="text/css">
+			.shengji{
+				padding:  0.2rem;
+			}
+			.shengji .cp_img{
+				margin-bottom: 10px;
+			}
+			.shengji2{
+				width: 100%;
+			}
+			.shengji2 .cp_img{
+				width: 50%;
+				float: left;
+				margin-bottom: 10px;
+			}
+			.shengji2 .cp_img a img {
+			    width: 100%;
+			    height: 2.5rem;
+			    margin-right: .2rem;
+}
+			.chaye{
+				padding: 0.2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content home">
+			<div class="layout">
+				<header class="mui-bar mui-bar-nav home_head">  
+	     			<a href="usercenter.aspx" class="mui-icon  mui-pull-left mui-icon-contact colorfff"></a>
+	        		<h1 class="mui-title mytitle colorfff">玖方商城</h1>  
+	    		</header>  
+				<!--
+	            	轮播图
+	            -->
+	           	<div class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<%set DataTable advert_banner=get_advert_banner_list(6)%>
+							<%foreach(DataRow dr in advert_banner.Rows)%>
+					    <!--支持循环，需要重复图片节点-->
+					    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					    <!--支持循环，需要重复图片节点-->
+					   <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="{dr[file_path]}" /></a></div>
+					   <%/foreach%>
+					</div>
+					<!--<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>-->
+				</div>
+				<!--
+	            	轮播图结束
+	            -->
+	            <!--
+                	升级换礼
+                -->
+               
+				<div class="common_block shengji">
+					<div class="head_sjimg">
+						<img src="<%templateskin%>/images/home2.png">
+					</div>
+					  <%set DataTable sj=get_category_list("goods", 57)%>
+					<%loop sjhl sj%>
+
+<%if(sjhl__loop__id==1)%>
+					<div class="cp_img">
+                        <a href="sj_products.aspx?category_id=58&Type=1">
+                            <img src="{sjhl[img_url]}">
+                        </a>
+					</div>
+			
+<%else%>
+				<div class="common_block shengji2">
+					<div class="cp_img clearfix">
+						 
+<%if(sjhl__loop__id==2)%>
+                        <a href="sj_products.aspx?category_id=68&Type=2">
+                            <img src="{sjhl[img_url]}">
+                        </a>
+				<%/if%>
+
+<%if(sjhl__loop__id==3)%>
+						<a href="sj_products.aspx?category_id=62">
+							<img src="{sjhl[img_url]}">
+						</a>
+				<%/if%>
+					</div>
+				</div>
+<%/if%>
+				<%/loop%>
+				</div>
+			
+				<!--
+                	品牌茶叶
+                -->
+				<div class="common_block chaye">
+					<div class="head_cyimg">
+						<img src="<%templateskin%>/images/home3.png">
+					</div>
+					  <%set DataTable zt=get_category_list("goods", 60)%>
+					  <%loop brand zt%>
+					  <%if(brand__loop__id==1)%>
+					<div class="cp_img">
+						<a href="brand_zt.aspx?category_id=65">
+							<img src="{brand[img_url]}">
+						</a>
+					</div>
+				<%/if%>
+				<%if(brand__loop__id==2)%>
+					<div class="cp_img">
+						<a href="brand_zt.aspx?category_id=64">
+							<img src="{brand[img_url]}">
+						</a>
+					</div>
+					<%/if%>
+					<%if(brand__loop__id==3)%>
+					<div class="cp_img">
+						<a href="brand_zt.aspx?category_id=63">
+							<img src="{brand[img_url]}">
+						</a>
+					</div>
+					<%/if%>
+					<%if(brand__loop__id==4)%>
+					<div class="cp_img">
+						<a href="brand_zt.aspx?category_id=61">
+							<img src="{brand[img_url]}">
+						</a>
+					</div>
+					<%/if%>
+					<%/loop%>
+					
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a href="index.aspx" class="mui-tab-item mui-active">
+		        <span class="mui-icon iconfont icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a href="paihang.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-class"></span>
+		        <span class="mui-tab-label">排行榜</span>
+		    </a>
+		    <!--<a href="shop_cart.aspx" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-un-car"></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>-->
+		    <a href="usercenter.aspx" class="mui-tab-item" id="my_usercenter">
+		        <span class="mui-icon iconfont icon-My"></span>
+		        <span class="mui-tab-label">个人中心</span>
+		    </a>
+		</nav>
+	</body>
+	<script src="<%templateskin%>/js/jquery-3.0.0.min.js"></script>
+	<script src="<%templateskin%>/js/mui.min.js"></script>
+	
+  	<script>
+  		/*底部导航跳转*/
+		mui('.mui-bar-tab').on('tap','a',function(){
+			document.location.href = this.href;
+		});
+		
+		/*轮播*/
+		mui(".mui-slider").slider({interval:3000});
+
+  	</script>
+</html>

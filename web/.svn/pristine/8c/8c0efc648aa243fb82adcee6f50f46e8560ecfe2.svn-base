@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <!--交易安全检验码，由数字和字母组成的32位字符串-->
+  <zf_key>1D781F29C5B66E91D1CC0D07BF22886D</zf_key>
+  <!--平台商户编号-->
+  <mch_id>100025569478</mch_id>
+  <!--平台商户账号-->
+  <mch_number>100025569478</mch_number>
+  <!--支付结果异步通知地址-->
+  <notify_Url>/api/payment/weixinzf/notify_url.aspx</notify_Url>
+</Root>

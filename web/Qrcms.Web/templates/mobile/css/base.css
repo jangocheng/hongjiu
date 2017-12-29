@@ -1,0 +1,42 @@
+html{color:#000;background:#fff;}
+
+body{font: 12px/1.5 Arial,ËÎÌו,sans-serif;}
+
+body,h1,h2,h3,h4,h5,h6,p,dl,dt,dd,ul,ol,li,pre,
+fieldset,legend,input,textarea,th,td{margin:0;padding:0;}
+
+table{border-collapse:collapse;border-spacing:0;}
+
+ul,li{list-style:none;}
+
+fieldset,img{border:none;}
+
+a{text-decretiom:none;color: #333333;}
+
+a:hover{text-decoration:inline;color: #cc0000;}
+
+input:focus{outline: none;}
+
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+.dzf, .yfh, .dfh, .dth, .ywc, .yqx, .dkj, .yzj, .wzj {
+line-height:16px;
+padding:0px 3px;
+font-size:12px;
+display:inline-block;
+border-radius:3px;
+    color:#fff;
+    margin-left:5px
+
+}
+.dzf, .yqx, .wzj {
+    background:#808080;
+}
+.dfh, .dkj, .dth {
+background:#2188b0;
+}
+.yfh, .ywc,  .yzj{
+    background:#ba2b2b;
+}
+.dzf, .yfh, .dfh, .dth, .ywc, .yqx, .dkj, .yzj, .wzj {
+}
